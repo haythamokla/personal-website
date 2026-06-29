@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SnapsFeed from '../components/SnapsFeed.astro';
+import { getCopy } from '../lib/copy';
+
+const copy = getCopy('en');
+const projects = (await getCollection('portfolio')).sort((a, b) => b.data.year - a.data.year);
+const breadcrumbs = [
+	{ name: copy.common.home, url: '/' },
+	{ name: copy.snaps.title, url: '/snaps/' },
+];
+---
+
+<BaseLayout title={copy.snaps.title} description={copy.snaps.description} canonical="/snaps/" breadcrumbs={breadcrumbs} immersive>
+	<SnapsFeed projects={projects} locale="en" />
+</BaseLayout>

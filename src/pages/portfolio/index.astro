@@ -3,39 +3,41 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageIntro from '../../components/PageIntro.astro';
-import { categoryLabels } from '../../lib/site';
+import { getCopy, getProjectText } from '../../lib/copy';
+import { imageSrc, pathWithBase } from '../../lib/site';
 
 const projects = (await getCollection('portfolio')).sort((a, b) => b.data.year - a.data.year);
+const copy = getCopy('en');
 const categories = [...new Set(projects.map((project) => project.data.category))];
 const categoryAnchors = Object.fromEntries(
 	categories.map((category) => [category, projects.find((project) => project.data.category === category)?.id]),
 );
 const breadcrumbs = [
-	{ name: 'Home', url: '/' },
-	{ name: 'Portfolio', url: '/portfolio/' },
+	{ name: copy.common.home, url: '/' },
+	{ name: copy.portfolio.title, url: '/portfolio/' },
 ];
 ---
 
 <BaseLayout
-	title="Portfolio"
-	description="Explore luxury travel, portrait, editorial, commercial, and street photography projects by Haytham Okla."
+	title={copy.portfolio.title}
+	description={copy.portfolio.description}
 	canonical="/portfolio/"
 	breadcrumbs={breadcrumbs}
 >
 	<Breadcrumbs items={breadcrumbs} />
-	<PageIntro eyebrow="Portfolio" title="Selected visual stories." text="A curated archive of photographic work across personal commissions, editorial essays, travel stories, and brand-led image systems." />
+	<PageIntro eyebrow={copy.portfolio.eyebrow} title={copy.portfolio.heading} text={copy.portfolio.text} />
 
-	<section class="container filters" aria-label="Portfolio categories">
-		<a href="#all">All</a>
-		{categories.map((category) => <a href={`#${categoryAnchors[category]}`}>{categoryLabels[category]}</a>)}
+	<section class="container filters" aria-label={copy.portfolio.categoriesLabel}>
+		<a href="#all">{copy.common.all}</a>
+		{categories.map((category) => <a href={`#${categoryAnchors[category]}`}>{copy.categories[category]}</a>)}
 	</section>
 
-	<section id="all" class="container masonry" aria-label="Portfolio gallery">
+	<section id="all" class="container masonry" aria-label={copy.portfolio.galleryLabel}>
 		{
 			projects.map((project, index) => (
-				<a class="masonry-item" id={project.id} href={`/portfolio/${project.id}/`}>
+				<a class="masonry-item" id={project.id} href={pathWithBase(`/portfolio/${project.id}/`)}>
 					<img
-						src={project.data.cover.src}
+						src={imageSrc(project.data.cover.src)}
 						width={project.data.cover.width}
 						height={project.data.cover.height}
 						alt={project.data.cover.alt}
@@ -43,8 +45,8 @@ const breadcrumbs = [
 						decoding="async"
 					/>
 					<span>
-						<strong>{project.data.title}</strong>
-						<small>{categoryLabels[project.data.category]} / {project.data.year}</small>
+						<strong>{getProjectText(project.id, 'en').title}</strong>
+						<small>{copy.categories[project.data.category]} / {project.data.year}</small>
 					</span>
 				</a>
 			))

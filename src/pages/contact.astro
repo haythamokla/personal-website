@@ -2,58 +2,57 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import PageIntro from '../components/PageIntro.astro';
+import { getCopy } from '../lib/copy';
 import { site } from '../lib/site';
 
+const copy = getCopy('en');
 const breadcrumbs = [
-	{ name: 'Home', url: '/' },
-	{ name: 'Contact', url: '/contact/' },
+	{ name: copy.common.home, url: '/' },
+	{ name: copy.contact.title, url: '/contact/' },
 ];
 ---
 
 <BaseLayout
-	title="Contact"
-	description="Contact Haytham Okla for photography bookings, editorial assignments, brand imagery, and creative collaborations."
+	title={copy.contact.title}
+	description={copy.contact.description}
 	canonical="/contact/"
 	breadcrumbs={breadcrumbs}
 >
 	<Breadcrumbs items={breadcrumbs} />
-	<PageIntro eyebrow="Contact" title="Start with the story." text="For commissions, collaborations, licensing, and editorial assignments, share a few details and I will respond with next steps." />
+	<PageIntro eyebrow={copy.contact.eyebrow} title={copy.contact.heading} text={copy.contact.text} />
 
 	<section class="container contact-layout">
 		<form class="contact-form" aria-label="Contact form placeholder">
 			<label>
-				<span>Name</span>
-				<input type="text" name="name" autocomplete="name" placeholder="Your name" />
+				<span>{copy.common.name}</span>
+				<input type="text" name="name" autocomplete="name" placeholder={copy.contact.namePlaceholder} />
 			</label>
 			<label>
-				<span>Email</span>
-				<input type="email" name="email" autocomplete="email" placeholder="you@example.com" />
+				<span>{copy.common.email}</span>
+				<input type="email" name="email" autocomplete="email" placeholder={copy.contact.emailPlaceholder} />
 			</label>
 			<label>
-				<span>Project Type</span>
+				<span>{copy.common.projectType}</span>
 				<select name="project">
-					<option>Editorial assignment</option>
-					<option>Personal branding</option>
-					<option>Commercial campaign</option>
-					<option>Travel story</option>
+					{copy.contact.projectOptions.map((option) => <option>{option}</option>)}
 				</select>
 			</label>
 			<label>
-				<span>Message</span>
-				<textarea name="message" rows="7" placeholder="Tell me what you are building, where it will live, and what the images need to feel like."></textarea>
+				<span>{copy.common.message}</span>
+				<textarea name="message" rows="7" placeholder={copy.contact.messagePlaceholder}></textarea>
 			</label>
-			<button class="button" type="button">Form placeholder</button>
+			<button class="button" type="button">{copy.common.formPlaceholder}</button>
 		</form>
 
 		<aside class="contact-panel">
 			<div>
-				<p class="eyebrow">Direct</p>
+				<p class="eyebrow">{copy.common.direct}</p>
 				<a href={`mailto:${site.email}`}>{site.email}</a>
 				<a href={`tel:${site.phone.replaceAll(' ', '')}`}>{site.phone}</a>
 				<p>{site.location}</p>
 			</div>
 			<div>
-				<p class="eyebrow">Social</p>
+				<p class="eyebrow">{copy.common.social}</p>
 				<nav aria-label="Social media">
 					{site.socials.map((social) => <a href={social.href} rel="noreferrer">{social.label}</a>)}
 				</nav>

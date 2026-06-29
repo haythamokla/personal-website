@@ -1,19 +1,25 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { pathWithBase, readingTime } from '../lib/site';
+import { getCopy, getPostText } from '../lib/copy';
+import { getLocaleFromPath, imageSrc, pathWithBase, readingTime, type Locale } from '../lib/site';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
+	hrefPrefix?: string;
+	locale?: Locale;
 }
 
-const { post } = Astro.props;
+const { post, hrefPrefix = '', locale = getLocaleFromPath(Astro.url.pathname) } = Astro.props;
 const minutes = readingTime(post.body ?? '');
+const postHref = pathWithBase(`${hrefPrefix}/blog/${post.id}/`);
+const postText = getPostText(post.id, locale);
+const copy = getCopy(locale);
 ---
 
 <article class="blog-card">
-	<a class="image-frame" href={pathWithBase(`/blog/${post.id}/`)} aria-label={`Read ${post.data.title}`}>
+	<a class="image-frame" href={postHref} aria-label={postText.title}>
 		<img
-			src={post.data.cover.src}
+			src={imageSrc(post.data.cover.src)}
 			width={post.data.cover.width}
 			height={post.data.cover.height}
 			alt={post.data.cover.alt}
@@ -24,10 +30,10 @@ const minutes = readingTime(post.body ?? '');
 	<div class="card">
 		<div class="meta">
 			<time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-			<span>{minutes} min read</span>
+			<span>{minutes} {copy.common.reading}</span>
 		</div>
-		<h3><a href={pathWithBase(`/blog/${post.id}/`)}>{post.data.title}</a></h3>
-		<p class="muted">{post.data.description}</p>
+		<h3><a href={postHref}>{postText.title}</a></h3>
+		<p class="muted">{postText.description}</p>
 	</div>
 </article>
 

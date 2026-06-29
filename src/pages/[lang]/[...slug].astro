@@ -1,0 +1,381 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import SnapsFeed from '../../components/SnapsFeed.astro';
+import { getCopy, getPostText, getProjectText } from '../../lib/copy';
+import { defaultLocale, imageCatalog, imageSrc, locales, pathWithBase, site, type Locale } from '../../lib/site';
+
+export async function getStaticPaths() {
+	const [posts, projects] = await Promise.all([getCollection('blog'), getCollection('portfolio')]);
+	const translatedLocales = Object.keys(locales).filter((locale) => locale !== defaultLocale) as Locale[];
+	const staticSlugs = ['', 'snaps', 'portfolio', 'blog', 'about', 'contact'];
+	const blogSlugs = posts.map((post) => `blog/${post.id}`);
+	const projectSlugs = projects.map((project) => `portfolio/${project.id}`);
+
+	return translatedLocales.flatMap((lang) =>
+		[...staticSlugs, ...blogSlugs, ...projectSlugs].map((slug) => ({
+			params: { lang, slug },
+			props: { lang, slug },
+		})),
+	);
+}
+
+const { lang, slug = '' } = Astro.props as { lang: Locale; slug: string };
+const [posts, projects] = await Promise.all([getCollection('blog'), getCollection('portfolio')]);
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedProjects = projects.sort((a, b) => b.data.year - a.data.year);
+const featuredProjects = sortedProjects.filter((project) => project.data.featured).slice(0, 3);
+const latestPosts = sortedPosts.slice(0, 3);
+const parts = slug.split('/').filter(Boolean);
+const section = parts[0] ?? '';
+const entrySlug = parts[1] ?? '';
+const project = section === 'portfolio' && entrySlug ? projects.find((item) => item.id === entrySlug) : undefined;
+const post = section === 'blog' && entrySlug ? posts.find((item) => item.id === entrySlug) : undefined;
+const copy = getCopy(lang);
+const projectText = project ? getProjectText(project.id, lang) : undefined;
+const postText = post ? getPostText(post.id, lang) : undefined;
+const categories = [...new Set(sortedProjects.map((item) => item.data.category))];
+const tags = [...new Set(sortedPosts.flatMap((item) => item.data.tags))];
+const categoryAnchors = Object.fromEntries(categories.map((category) => [category, sortedProjects.find((item) => item.data.category === category)?.id]));
+const localePrefix = `/${lang}`;
+
+const pageLabels = {
+	'': copy.home.title,
+	snaps: copy.snaps.title,
+	portfolio: copy.portfolio.title,
+	blog: copy.blog.title,
+	about: copy.about.title,
+	contact: copy.contact.title,
+};
+const homeBreadcrumb = { name: copy.common.home, url: `${localePrefix}/` };
+const pageTitle =
+	projectText?.title ??
+	postText?.title ??
+	(pageLabels[section] ?? site.title);
+const pageDescription =
+	projectText?.description ??
+	postText?.description ??
+	(section === 'snaps' ? copy.snaps.description :
+	section === 'portfolio' ? copy.portfolio.description :
+	section === 'blog' ? copy.blog.description :
+	section === 'about' ? copy.about.description :
+	section === 'contact' ? copy.contact.description :
+	copy.home.description);
+const canonical =
+	project ? `${localePrefix}/portfolio/${project.id}/` :
+	post ? `${localePrefix}/blog/${post.id}/` :
+	section ? `${localePrefix}/${section}/` :
+	`${localePrefix}/`;
+const breadcrumbs = [
+	homeBreadcrumb,
+	...(section ? [{ name: pageLabels[section] ?? section, url: `${localePrefix}/${section}/` }] : []),
+	...(projectText && project ? [{ name: projectText.title, url: `${localePrefix}/portfolio/${project.id}/` }] : []),
+	...(postText && post ? [{ name: postText.title, url: `${localePrefix}/blog/${post.id}/` }] : []),
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} image={project?.data.cover.src ?? post?.data.cover.src ?? imageCatalog.hero.src} canonical={canonical} breadcrumbs={breadcrumbs.length > 1 ? breadcrumbs : []} immersive={section === 'snaps'}>
+	{section && section !== 'snaps' && <Breadcrumbs items={breadcrumbs} />}
+
+	{
+		!section && (
+			<>
+				<section class="localized-hero">
+					<img src={imageCatalog.hero.src} width={imageCatalog.hero.width} height={imageCatalog.hero.height} alt={imageCatalog.hero.alt} fetchpriority="high" decoding="async" />
+					<div>
+						<p class="eyebrow">{copy.home.eyebrow}</p>
+						<h1>{copy.home.heading}</h1>
+						<p class="lead">{copy.home.intro}</p>
+						<div class="button-row">
+							<a class="button" href={pathWithBase(`${localePrefix}/portfolio/`)}>{copy.home.portfolioCta}</a>
+							<a class="button secondary" href={pathWithBase(`${localePrefix}/contact/`)}>{copy.home.contactCta}</a>
+						</div>
+					</div>
+				</section>
+				<section class="section container">
+					<SectionHeader eyebrow={copy.home.featuredEyebrow} title={copy.home.featuredTitle} text={copy.home.featuredText} />
+					<div class="card-grid">{featuredProjects.map((item) => <ProjectCard project={item} hrefPrefix={localePrefix} locale={lang} />)}</div>
+				</section>
+				<section class="section container">
+					<SectionHeader eyebrow={copy.home.journalEyebrow} title={copy.home.journalTitle} text={copy.home.journalText} />
+					<div class="card-grid">{latestPosts.map((item) => <BlogCard post={item} hrefPrefix={localePrefix} locale={lang} />)}</div>
+				</section>
+				<ContactBand hrefPrefix={localePrefix} locale={lang} />
+			</>
+		)
+	}
+
+	{
+		section === 'snaps' && (
+			<SnapsFeed projects={sortedProjects} locale={lang} hrefPrefix={localePrefix} />
+		)
+	}
+
+	{
+		section === 'portfolio' && !project && (
+			<>
+				<PageIntro eyebrow={copy.portfolio.eyebrow} title={copy.portfolio.heading} text={copy.portfolio.text} />
+				<section class="container filters">
+					<a href="#all">{copy.common.all}</a>
+					{categories.map((category) => <a href={`#${categoryAnchors[category]}`}>{copy.categories[category]}</a>)}
+				</section>
+				<section id="all" class="container masonry">
+					{sortedProjects.map((item) => (
+						<a class="masonry-item" id={item.id} href={pathWithBase(`${localePrefix}/portfolio/${item.id}/`)}>
+							<img src={imageSrc(item.data.cover.src)} width={item.data.cover.width} height={item.data.cover.height} alt={item.data.cover.alt} loading="lazy" decoding="async" />
+							<span><strong>{getProjectText(item.id, lang).title}</strong><small>{copy.categories[item.data.category]} / {item.data.year}</small></span>
+						</a>
+					))}
+				</section>
+			</>
+		)
+	}
+
+	{
+		project && projectText && (
+			<article class="container detail-page">
+				<header>
+					<p class="eyebrow">{copy.categories[project.data.category]}</p>
+					<h1>{projectText.title}</h1>
+					<p class="lead">{projectText.description}</p>
+				</header>
+				<div class="prose">{projectText.body.map((paragraph) => <p>{paragraph}</p>)}</div>
+				<section class="gallery">
+					{project.data.gallery.map((image) => <img src={imageSrc(image.src)} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />)}
+				</section>
+			</article>
+		)
+	}
+
+	{
+		section === 'blog' && !post && (
+			<>
+				<PageIntro eyebrow={copy.blog.eyebrow} title={copy.blog.heading} text={copy.blog.text} />
+				<section class="container taxonomy">
+					<div><p class="eyebrow">{copy.common.categories}</p><div>{[...new Set(sortedPosts.map((item) => item.data.category))].map((category) => <span>{category}</span>)}</div></div>
+					<div><p class="eyebrow">{copy.common.tags}</p><div>{tags.map((tag) => <span>{tag}</span>)}</div></div>
+				</section>
+				<section class="container card-grid page-grid">{sortedPosts.map((item) => <BlogCard post={item} hrefPrefix={localePrefix} locale={lang} />)}</section>
+			</>
+		)
+	}
+
+	{
+		post && postText && (
+			<article class="container detail-page">
+				<header>
+					<p class="eyebrow">{post.data.category}</p>
+					<h1>{postText.title}</h1>
+					<p class="lead">{postText.description}</p>
+				</header>
+				<img class="cover" src={imageSrc(post.data.cover.src)} width={post.data.cover.width} height={post.data.cover.height} alt={post.data.cover.alt} loading="eager" decoding="async" />
+				<div class="prose">{postText.body.map((paragraph) => <p>{paragraph}</p>)}</div>
+			</article>
+		)
+	}
+
+	{
+		section === 'about' && (
+			<>
+				<PageIntro eyebrow={copy.about.eyebrow} title={copy.about.heading} text={copy.about.text} />
+				<section class="container detail-page prose">
+					<h2>{copy.about.storyTitle}</h2>
+					{copy.about.story.map((paragraph) => <p>{paragraph}</p>)}
+					<h2>{copy.about.journeyTitle}</h2>
+					{copy.about.timeline.map((item) => <p><strong>{item[0]}:</strong> {item[1]}</p>)}
+				</section>
+				<ContactBand hrefPrefix={localePrefix} locale={lang} />
+			</>
+		)
+	}
+
+	{
+		section === 'contact' && (
+			<>
+				<PageIntro eyebrow={copy.contact.eyebrow} title={copy.contact.heading} text={copy.contact.text} />
+				<section class="container detail-page localized-contact">
+					<form class="contact-form" aria-label={copy.contact.title}>
+						<label><span>{copy.common.name}</span><input type="text" name="name" autocomplete="name" placeholder={copy.contact.namePlaceholder} /></label>
+						<label><span>{copy.common.email}</span><input type="email" name="email" autocomplete="email" placeholder={copy.contact.emailPlaceholder} /></label>
+						<label><span>{copy.common.projectType}</span><select name="project">{copy.contact.projectOptions.map((option) => <option>{option}</option>)}</select></label>
+						<label><span>{copy.common.message}</span><textarea name="message" rows="7" placeholder={copy.contact.messagePlaceholder}></textarea></label>
+						<button class="button" type="button">{copy.common.formPlaceholder}</button>
+					</form>
+					<aside class="prose">
+						<p><strong>{copy.common.email}:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></p>
+						<p><strong>{copy.common.location}:</strong> {site.location}</p>
+					</aside>
+				</section>
+			</>
+		)
+	}
+</BaseLayout>
+
+<style>
+	.localized-hero {
+		position: relative;
+		display: grid;
+		align-items: end;
+		min-height: 100svh;
+		overflow: hidden;
+		padding: 7rem 1rem 3rem;
+	}
+
+	.localized-hero::after {
+		position: absolute;
+		inset: 0;
+		content: '';
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.3)), linear-gradient(0deg, #050505, transparent 35%);
+	}
+
+	.localized-hero > img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.localized-hero > div {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		gap: 1.25rem;
+		width: min(100%, var(--max));
+		margin-inline: auto;
+	}
+
+	.card-grid,
+	.page-grid,
+	.gallery,
+	.taxonomy {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-bottom: 2rem;
+	}
+
+	.filters a,
+	.taxonomy span {
+		border: 1px solid var(--line);
+		padding: 0.6rem 0.8rem;
+		color: var(--muted);
+	}
+
+	.masonry {
+		columns: 1;
+		column-gap: 1rem;
+		padding-bottom: clamp(4rem, 8vw, 7rem);
+	}
+
+	.masonry-item {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		margin-bottom: 1rem;
+		break-inside: avoid;
+	}
+
+	.masonry-item img {
+		width: 100%;
+		height: auto;
+	}
+
+	.masonry-item span {
+		position: absolute;
+		inset: auto 0 0;
+		display: grid;
+		gap: 0.25rem;
+		padding: 1rem;
+		background: linear-gradient(0deg, rgba(0, 0, 0, 0.86), transparent);
+	}
+
+	.masonry-item small {
+		color: var(--muted);
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.detail-page {
+		display: grid;
+		gap: 2rem;
+		padding: 2rem 0 clamp(4rem, 8vw, 7rem);
+	}
+
+	.detail-page header {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.cover,
+	.gallery img {
+		width: 100%;
+		height: auto;
+	}
+
+	.localized-contact {
+		grid-template-columns: 1fr;
+	}
+
+	.contact-form {
+		display: grid;
+		gap: 1rem;
+	}
+
+	label {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	label span {
+		color: var(--muted);
+		font-size: 0.78rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	input,
+	select,
+	textarea {
+		width: 100%;
+		border: 1px solid var(--line);
+		border-radius: 0;
+		background: #0b0b0b;
+		color: #fff;
+		font: inherit;
+		padding: 0.9rem;
+	}
+
+	@media (min-width: 780px) {
+		.card-grid,
+		.page-grid,
+		.taxonomy {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.masonry {
+			columns: 3;
+		}
+
+		.gallery {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.localized-contact {
+			grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+		}
+	}
+</style>

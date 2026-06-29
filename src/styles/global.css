@@ -99,8 +99,8 @@ a:hover {
 .footer-brand {
 	font-family: var(--serif);
 	font-size: 1.1rem;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	text-transform: none;
 }
 
 .nav-links,
@@ -110,7 +110,7 @@ a:hover {
 
 .nav-links a,
 .site-footer a,
-.locale-switcher span {
+.locale-switcher a {
 	color: var(--muted);
 	font-size: 0.78rem;
 	font-weight: 700;
@@ -127,7 +127,7 @@ a:hover {
 	gap: 0.55rem;
 }
 
-.locale-switcher span {
+.locale-switcher a {
 	border: 1px solid var(--line);
 	padding: 0.35rem 0.45rem;
 }

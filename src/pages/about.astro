@@ -4,11 +4,13 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ContactBand from '../components/ContactBand.astro';
 import PageIntro from '../components/PageIntro.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import { getCopy } from '../lib/copy';
 import { imageCatalog } from '../lib/site';
 
+const copy = getCopy('en');
 const breadcrumbs = [
-	{ name: 'Home', url: '/' },
-	{ name: 'About', url: '/about/' },
+	{ name: copy.common.home, url: '/' },
+	{ name: copy.about.title, url: '/about/' },
 ];
 
 const equipment = ['Full-frame mirrorless bodies', 'Fast prime lenses', 'Compact travel zoom', 'Portable LED lighting', 'Color-managed editing workflow'];
@@ -17,52 +19,42 @@ const languages = ['English', 'Dutch', 'Arabic', 'Turkish'];
 ---
 
 <BaseLayout
-	title="About"
-	description="Learn about Haytham Okla's photography journey, visual approach, equipment, skills, and languages."
+	title={copy.about.title}
+	description={copy.about.description}
 	canonical="/about/"
 	breadcrumbs={breadcrumbs}
 >
 	<Breadcrumbs items={breadcrumbs} />
-	<PageIntro eyebrow="About" title="Quiet precision, human stories." text="My work lives between documentary patience and editorial control: images that feel composed, but never overworked." />
+	<PageIntro eyebrow={copy.about.eyebrow} title={copy.about.heading} text={copy.about.text} />
 
 	<section class="container about-grid">
 		<div class="image-frame">
 			<img src={imageCatalog.studio.src} width={imageCatalog.studio.width} height={imageCatalog.studio.height} alt={imageCatalog.studio.alt} loading="eager" decoding="async" />
 		</div>
 		<div class="prose">
-			<h2>Personal Story</h2>
-			<p>
-				Photography began as a way to slow down and understand places more carefully. Over time, that
-				curiosity became a visual language built on light, atmosphere, and the dignity of simple
-				compositions.
-			</p>
-			<p>
-				Today, I work with individuals and brands who want imagery that feels premium without becoming
-				loud. The process is collaborative, calm, and shaped around the story each project needs to tell.
-			</p>
+			<h2>{copy.about.storyTitle}</h2>
+			{copy.about.story.map((paragraph) => <p>{paragraph}</p>)}
 		</div>
 	</section>
 
 	<section class="section container">
-		<SectionHeader eyebrow="Journey" title="From observation to direction." text="The creative practice keeps one foot in candid discovery and one foot in planned editorial structure." />
+		<SectionHeader eyebrow={copy.about.journeyEyebrow} title={copy.about.journeyTitle} text={copy.about.journeyText} />
 		<div class="timeline">
-			<article><span>01</span><h3>Seeing</h3><p class="muted">Learning to read light, gesture, space, and visual rhythm before lifting the camera.</p></article>
-			<article><span>02</span><h3>Shaping</h3><p class="muted">Directing scenes with restraint so the final frame remains believable and alive.</p></article>
-			<article><span>03</span><h3>Refining</h3><p class="muted">Editing for consistency, color discipline, and long-term brand usefulness.</p></article>
+			{copy.about.timeline.map((item, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{item[0]}</h3><p class="muted">{item[1]}</p></article>)}
 		</div>
 	</section>
 
 	<section class="section container lists">
 		<div>
-			<p class="eyebrow">Equipment</p>
+			<p class="eyebrow">{copy.about.equipment}</p>
 			<ul>{equipment.map((item) => <li>{item}</li>)}</ul>
 		</div>
 		<div>
-			<p class="eyebrow">Skills</p>
+			<p class="eyebrow">{copy.about.skills}</p>
 			<ul>{skills.map((item) => <li>{item}</li>)}</ul>
 		</div>
 		<div>
-			<p class="eyebrow">Languages</p>
+			<p class="eyebrow">{copy.about.languages}</p>
 			<ul>{languages.map((item) => <li>{item}</li>)}</ul>
 		</div>
 	</section>

@@ -4,37 +4,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import { getCopy } from '../../lib/copy';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const copy = getCopy('en');
 const categories = [...new Set(posts.map((post) => post.data.category))];
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
 const breadcrumbs = [
-	{ name: 'Home', url: '/' },
-	{ name: 'Blog', url: '/blog/' },
+	{ name: copy.common.home, url: '/' },
+	{ name: copy.blog.title, url: '/blog/' },
 ];
 ---
 
 <BaseLayout
-	title="Blog"
-	description="Photography essays, field notes, gear thoughts, and visual direction insights by Haytham Okla."
+	title={copy.blog.title}
+	description={copy.blog.description}
 	canonical="/blog/"
 	breadcrumbs={breadcrumbs}
 >
 	<Breadcrumbs items={breadcrumbs} />
-	<PageIntro eyebrow="Journal" title="Essays for sharper seeing." text="A Markdown-powered journal for field notes, creative process, gear, visual direction, and the small decisions behind cinematic images." />
+	<PageIntro eyebrow={copy.blog.eyebrow} title={copy.blog.heading} text={copy.blog.text} />
 
-	<section class="container taxonomy" aria-label="Blog taxonomy">
+	<section class="container taxonomy" aria-label={copy.blog.taxonomyLabel}>
 		<div>
-			<p class="eyebrow">Categories</p>
+			<p class="eyebrow">{copy.common.categories}</p>
 			<div>{categories.map((category) => <span>{category}</span>)}</div>
 		</div>
 		<div>
-			<p class="eyebrow">Tags</p>
+			<p class="eyebrow">{copy.common.tags}</p>
 			<div>{tags.map((tag) => <span>{tag}</span>)}</div>
 		</div>
 	</section>
 
-	<section class="container post-list" aria-label="Article listing">
+	<section class="container post-list" aria-label={copy.blog.listLabel}>
 		{posts.map((post) => <BlogCard post={post} />)}
 	</section>
 </BaseLayout>

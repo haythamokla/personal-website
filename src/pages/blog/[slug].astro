@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContactBand from '../../components/ContactBand.astro';
-import { absoluteUrl, readingTime, site } from '../../lib/site';
+import { absoluteUrl, imageSrc, readingTime, site } from '../../lib/site';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -58,7 +58,7 @@ const structuredData = {
 			<h1>{post.data.title}</h1>
 			<p class="lead">{post.data.description}</p>
 		</header>
-		<img class="cover" src={post.data.cover.src} width={post.data.cover.width} height={post.data.cover.height} alt={post.data.cover.alt} fetchpriority="high" decoding="async" />
+		<img class="cover" src={imageSrc(post.data.cover.src)} width={post.data.cover.width} height={post.data.cover.height} alt={post.data.cover.alt} fetchpriority="high" decoding="async" />
 		<div class="prose article-body">
 			<Content />
 		</div>

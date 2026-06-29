@@ -1,19 +1,25 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { categoryLabels, pathWithBase } from '../lib/site';
+import { getCopy, getProjectText } from '../lib/copy';
+import { getLocaleFromPath, imageSrc, pathWithBase, type Locale } from '../lib/site';
 
 interface Props {
 	project: CollectionEntry<'portfolio'>;
 	priority?: boolean;
+	hrefPrefix?: string;
+	locale?: Locale;
 }
 
-const { project, priority = false } = Astro.props;
+const { project, priority = false, hrefPrefix = '', locale = getLocaleFromPath(Astro.url.pathname) } = Astro.props;
+const projectHref = pathWithBase(`${hrefPrefix}/portfolio/${project.id}/`);
+const projectText = getProjectText(project.id, locale);
+const copy = getCopy(locale);
 ---
 
 <article class="project-card">
-	<a class="image-frame" href={pathWithBase(`/portfolio/${project.id}/`)} aria-label={`View ${project.data.title}`}>
+	<a class="image-frame" href={projectHref} aria-label={projectText.title}>
 		<img
-			src={project.data.cover.src}
+			src={imageSrc(project.data.cover.src)}
 			width={project.data.cover.width}
 			height={project.data.cover.height}
 			alt={project.data.cover.alt}
@@ -23,11 +29,11 @@ const { project, priority = false } = Astro.props;
 	</a>
 	<div class="card">
 		<div class="meta">
-			<span>{categoryLabels[project.data.category]}</span>
+			<span>{copy.categories[project.data.category]}</span>
 			<span>{project.data.year}</span>
 		</div>
-		<h3><a href={pathWithBase(`/portfolio/${project.id}/`)}>{project.data.title}</a></h3>
-		<p class="muted">{project.data.description}</p>
+		<h3><a href={projectHref}>{projectText.title}</a></h3>
+		<p class="muted">{projectText.description}</p>
 	</div>
 </article>
 

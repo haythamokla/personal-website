@@ -5,22 +5,24 @@ import BlogCard from '../components/BlogCard.astro';
 import ContactBand from '../components/ContactBand.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import { getCopy } from '../lib/copy';
 import { imageCatalog, pathWithBase, site } from '../lib/site';
 
 const projects = (await getCollection('portfolio')).sort((a, b) => Number(b.data.featured) - Number(a.data.featured)).slice(0, 3);
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const copy = getCopy('en');
 
 const structuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'WebSite',
 	name: site.name,
 	url: site.url + site.base,
-	description: site.description,
+	description: copy.home.description,
 	inLanguage: 'en',
 };
 ---
 
-<BaseLayout title={site.title} description={site.description} image={imageCatalog.hero.src} structuredData={structuredData}>
+<BaseLayout title={copy.home.title} description={copy.home.description} image={imageCatalog.hero.src} structuredData={structuredData}>
 	<section class="hero" aria-label="Introduction">
 		<img
 			src={imageCatalog.hero.src}
@@ -31,21 +33,18 @@ const structuredData = {
 			decoding="async"
 		/>
 		<div class="hero-content">
-			<p class="eyebrow">Amsterdam based visual storyteller</p>
-			<h1>Still frames with a cinematic pulse.</h1>
-			<p class="lead">
-				I create refined photography for people, places, and brands that want their story to feel
-				tactile, intentional, and unforgettable.
-			</p>
+			<p class="eyebrow">{copy.home.eyebrow}</p>
+			<h1>{copy.home.heading}</h1>
+			<p class="lead">{copy.home.intro}</p>
 			<div class="button-row">
-				<a class="button" href={pathWithBase('/portfolio/')}>View portfolio</a>
-				<a class="button secondary" href={pathWithBase('/contact/')}>Book a session</a>
+				<a class="button" href={pathWithBase('/portfolio/')}>{copy.home.portfolioCta}</a>
+				<a class="button secondary" href={pathWithBase('/contact/')}>{copy.home.contactCta}</a>
 			</div>
 		</div>
 	</section>
 
 	<section class="section container">
-		<SectionHeader eyebrow="Featured portfolio" title="Editorial calm, cinematic edge." text="Selected work across travel, portrait, commercial, and street stories." />
+		<SectionHeader eyebrow={copy.home.featuredEyebrow} title={copy.home.featuredTitle} text={copy.home.featuredText} />
 		<div class="featured-grid">
 			{projects.map((project) => <ProjectCard project={project} />)}
 		</div>
@@ -53,20 +52,16 @@ const structuredData = {
 
 	<section class="section container split-feature">
 		<div>
-			<p class="eyebrow">Approach</p>
-			<h2>Luxury without noise.</h2>
+			<p class="eyebrow">{copy.home.approachEyebrow}</p>
+			<h2>{copy.home.approachTitle}</h2>
 		</div>
 		<div class="prose">
-			<p>
-				The work is quiet by design: natural light, precise framing, and a restrained edit that lets the
-				subject carry the frame. Every commission is planned around mood, movement, location, and the
-				final context where the image will live.
-			</p>
+			<p>{copy.home.approachText}</p>
 		</div>
 	</section>
 
 	<section class="section container">
-		<SectionHeader eyebrow="Journal" title="Notes from the field." text="Short essays on photography, travel, gear, creative process, and visual storytelling." />
+		<SectionHeader eyebrow={copy.home.journalEyebrow} title={copy.home.journalTitle} text={copy.home.journalText} />
 		<div class="blog-grid">
 			{posts.map((post) => <BlogCard post={post} />)}
 		</div>

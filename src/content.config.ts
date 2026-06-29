@@ -2,7 +2,9 @@ import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
 const imageSchema = z.object({
-	src: z.string().url(),
+	src: z.string().refine((value) => value.startsWith('/') || URL.canParse(value), {
+		message: 'Use a full image URL or a local public path such as /photos/image.jpg',
+	}),
 	alt: z.string(),
 	width: z.number(),
 	height: z.number(),

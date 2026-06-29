@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { absoluteUrl, defaultLocale, getLocaleFromPath, locales, navItems, pathWithBase, site } from '../lib/site';
+import { absoluteUrl, defaultLocale, getLocaleFromPath, getTranslations, localizedPath, locales, navItems, pathWithBase, removeLocaleFromPath, site } from '../lib/site';
 
 type Breadcrumb = {
 	name: string;
@@ -15,6 +15,7 @@ interface Props {
 	canonical?: string;
 	breadcrumbs?: Breadcrumb[];
 	noindex?: boolean;
+	immersive?: boolean;
 	structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -26,15 +27,18 @@ const {
 	canonical = Astro.url.pathname,
 	breadcrumbs = [],
 	noindex = false,
+	immersive = false,
 	structuredData,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 const locale = getLocaleFromPath(currentPath);
 const localeMeta = locales[locale] ?? locales[defaultLocale];
+const t = getTranslations(locale);
+const cleanCurrentPath = removeLocaleFromPath(currentPath);
 const canonicalUrl = absoluteUrl(canonical);
 const imageUrl = image.startsWith('http') ? image : absoluteUrl(image);
-const pageTitle = title === site.title ? title : `${title} | ${site.name}`;
+const pageTitle = title === site.title || title.includes(site.name) ? title : `${title} | ${site.name}`;
 
 const baseSchema = {
 	'@context': 'https://schema.org',
@@ -91,50 +95,54 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 		<meta name="twitter:image" content={imageUrl} />
 		{
 			Object.keys(locales).map((lang) => (
-				<link rel="alternate" hreflang={lang} href={absoluteUrl(currentPath)} />
+				<link rel="alternate" hreflang={lang} href={absoluteUrl(localizedPath(currentPath, lang as keyof typeof locales))} />
 			))
 		}
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-	</head>
-	<body>
-		<a class="skip-link" href="#content">Skip to content</a>
-		<header class="site-header" aria-label="Primary navigation">
-			<a class="brand" href={pathWithBase('/')} aria-label={`${site.name} home`}>
-				<span>{site.name}</span>
-			</a>
-			<nav class="nav-links">
-				{
-					navItems.map((item) => (
-						<a href={pathWithBase(item.href)} aria-current={currentPath === item.href ? 'page' : undefined}>
-							{item.label}
-						</a>
-					))
-				}
-			</nav>
-			<div class="locale-switcher" aria-label="Prepared language options">
-				{
-					Object.entries(locales).map(([code, value]) => (
-						<span aria-label={value.label} class={code === locale ? 'active' : undefined}>
-							{code.toUpperCase()}
-						</span>
-					))
-				}
-			</div>
-		</header>
+		</head>
+		<body>
+			<a class="skip-link" href="#content">{t.skip}</a>
+			<header class="site-header" aria-label="Primary navigation">
+				<a class="brand" href={localizedPath('/', locale)} aria-label={`${site.name} home`}>
+					<span>{site.name}</span>
+				</a>
+				<nav class="nav-links">
+					{
+						navItems.map((item) => (
+							<a href={localizedPath(item.href, locale)} aria-current={cleanCurrentPath === item.href ? 'page' : undefined}>
+								{t.nav[item.key]}
+							</a>
+						))
+					}
+				</nav>
+				<nav class="locale-switcher" aria-label={t.languageOptions}>
+					{
+						Object.entries(locales).map(([code, value]) => (
+						<a href={localizedPath(currentPath, code as keyof typeof locales)} aria-label={value.label} class={code === locale ? 'active' : undefined} aria-current={code === locale ? 'true' : undefined}>
+								{code.toUpperCase()}
+							</a>
+						))
+					}
+				</nav>
+			</header>
 		<main id="content">
 			<slot />
 		</main>
-		<footer class="site-footer">
-			<div>
-				<a class="footer-brand" href={pathWithBase('/')}>{site.name}</a>
-				<p>Luxury photography, cinematic visual direction, and thoughtful stories from Amsterdam.</p>
-			</div>
-			<nav aria-label="Footer navigation">
-				{navItems.map((item) => <a href={pathWithBase(item.href)}>{item.label}</a>)}
-			</nav>
-			<nav aria-label="Social links">
-				{site.socials.map((social) => <a href={social.href} rel="noreferrer">{social.label}</a>)}
-			</nav>
-		</footer>
+		{
+			!immersive && (
+				<footer class="site-footer">
+					<div>
+						<a class="footer-brand" href={localizedPath('/', locale)}>{site.name}</a>
+						<p>{t.footerText}</p>
+					</div>
+					<nav aria-label={t.footerNav}>
+						{navItems.map((item) => <a href={localizedPath(item.href, locale)}>{t.nav[item.key]}</a>)}
+					</nav>
+					<nav aria-label={t.socialLinks}>
+						{site.socials.map((social) => <a href={social.href} rel="noreferrer">{social.label}</a>)}
+					</nav>
+				</footer>
+			)
+		}
 	</body>
 </html>

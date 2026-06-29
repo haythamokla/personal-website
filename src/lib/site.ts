@@ -29,12 +29,76 @@ export const site = {
 };
 
 export const navItems = [
-	{ label: 'Home', href: '/' },
-	{ label: 'Portfolio', href: '/portfolio/' },
-	{ label: 'Blog', href: '/blog/' },
-	{ label: 'About', href: '/about/' },
-	{ label: 'Contact', href: '/contact/' },
+	{ key: 'home', href: '/' },
+	{ key: 'snaps', href: '/snaps/' },
+	{ key: 'portfolio', href: '/portfolio/' },
+	{ key: 'blog', href: '/blog/' },
+	{ key: 'about', href: '/about/' },
+	{ key: 'contact', href: '/contact/' },
 ];
+
+export const translations = {
+	en: {
+		nav: {
+			home: 'Home',
+			snaps: 'Snaps',
+			portfolio: 'Portfolio',
+			blog: 'Blog',
+			about: 'About',
+			contact: 'Contact',
+		},
+		skip: 'Skip to content',
+		footerText: 'Luxury photography, cinematic visual direction, and thoughtful stories from Amsterdam.',
+		footerNav: 'Footer navigation',
+		socialLinks: 'Social links',
+		languageOptions: 'Language options',
+	},
+	nl: {
+		nav: {
+			home: 'Home',
+			snaps: 'Snaps',
+			portfolio: 'Portfolio',
+			blog: 'Blog',
+			about: 'Over',
+			contact: 'Contact',
+		},
+		skip: 'Ga naar inhoud',
+		footerText: 'Luxe fotografie, filmische visuele richting en doordachte verhalen vanuit Amsterdam.',
+		footerNav: 'Voetnavigatie',
+		socialLinks: 'Sociale links',
+		languageOptions: 'Taalopties',
+	},
+	ar: {
+		nav: {
+			home: 'الرئيسية',
+			snaps: 'لقطات',
+			portfolio: 'الأعمال',
+			blog: 'المدونة',
+			about: 'نبذة',
+			contact: 'تواصل',
+		},
+		skip: 'انتقل إلى المحتوى',
+		footerText: 'تصوير فاخر، وتوجيه بصري سينمائي، وقصص مدروسة من أمستردام.',
+		footerNav: 'روابط التذييل',
+		socialLinks: 'روابط التواصل',
+		languageOptions: 'خيارات اللغة',
+	},
+	tr: {
+		nav: {
+			home: 'Ana Sayfa',
+			snaps: 'Kareler',
+			portfolio: 'Portfolyo',
+			blog: 'Blog',
+			about: 'Hakkında',
+			contact: 'İletişim',
+		},
+		skip: 'İçeriğe geç',
+		footerText: 'Amsterdam merkezli lüks fotoğrafçılık, sinematik görsel yönlendirme ve düşünceli hikayeler.',
+		footerNav: 'Alt menü',
+		socialLinks: 'Sosyal bağlantılar',
+		languageOptions: 'Dil seçenekleri',
+	},
+} as const;
 
 export const categoryLabels = {
 	editorial: 'Editorial',
@@ -63,6 +127,10 @@ export function absoluteUrl(path = '/') {
 	return new URL(pathWithBase(path), site.url).toString();
 }
 
+export function imageSrc(src: string) {
+	return src.startsWith('http') ? src : pathWithBase(src);
+}
+
 export function pathWithBase(path = '/') {
 	const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 	if (normalizedPath === site.base || normalizedPath.startsWith(`${site.base}/`)) {
@@ -72,8 +140,33 @@ export function pathWithBase(path = '/') {
 }
 
 export function getLocaleFromPath(pathname: string): Locale {
-	const segment = pathname.split('/').filter(Boolean)[0] as Locale | undefined;
+	const cleanPath = stripBaseFromPath(pathname);
+	const segment = cleanPath.split('/').filter(Boolean)[0] as Locale | undefined;
 	return segment && segment in locales ? segment : defaultLocale;
+}
+
+export function removeLocaleFromPath(pathname: string) {
+	const withoutBase = stripBaseFromPath(pathname);
+	const parts = withoutBase.split('/').filter(Boolean);
+	const first = parts[0] as Locale | undefined;
+	const withoutLocale = first && first in locales ? parts.slice(1) : parts;
+	return `/${withoutLocale.join('/')}${withoutLocale.length ? '/' : ''}`;
+}
+
+function stripBaseFromPath(pathname: string) {
+	if (pathname === site.base) return '/';
+	if (pathname.startsWith(`${site.base}/`)) return pathname.slice(site.base.length);
+	return pathname;
+}
+
+export function localizedPath(pathname: string, locale: Locale) {
+	const cleanPath = removeLocaleFromPath(pathname);
+	if (locale === defaultLocale) return pathWithBase(cleanPath);
+	return pathWithBase(`/${locale}${cleanPath}`);
+}
+
+export function getTranslations(locale: Locale) {
+	return translations[locale] ?? translations[defaultLocale];
 }
 
 export function readingTime(body = '') {

@@ -1,20 +1,28 @@
 ---
-import { pathWithBase, site } from '../lib/site';
+import { getCopy } from '../lib/copy';
+import { getLocaleFromPath, pathWithBase, site, type Locale } from '../lib/site';
+
+interface Props {
+	hrefPrefix?: string;
+	locale?: Locale;
+}
+
+const { hrefPrefix = '', locale = getLocaleFromPath(Astro.url.pathname) } = Astro.props;
+const copy = getCopy(locale);
 ---
 
 <section class="contact-band">
 	<div class="container contact-inner">
 		<div>
-			<p class="eyebrow">Bookings and collaborations</p>
-			<h2>Let the next frame feel intentional.</h2>
+			<p class="eyebrow">{copy.contactBand.eyebrow}</p>
+			<h2>{copy.contactBand.heading}</h2>
 		</div>
 		<div class="contact-actions">
 			<p class="lead">
-				Available for editorial assignments, refined personal branding, commercial campaigns, and
-				travel-led storytelling.
+				{copy.contactBand.text}
 			</p>
 			<div class="button-row">
-				<a class="button" href={pathWithBase('/contact/')}>Start a project</a>
+				<a class="button" href={pathWithBase(`${hrefPrefix}/contact/`)}>{copy.contactBand.cta}</a>
 				<a class="button secondary" href={`mailto:${site.email}`}>{site.email}</a>
 			</div>
 		</div>

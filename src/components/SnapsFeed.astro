@@ -1,0 +1,252 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCopy, getProjectText } from '../lib/copy';
+import { imageSrc, pathWithBase, site, type Locale } from '../lib/site';
+
+interface Props {
+	projects: CollectionEntry<'portfolio'>[];
+	locale: Locale;
+	hrefPrefix?: string;
+}
+
+const { projects, locale, hrefPrefix = '' } = Astro.props;
+const copy = getCopy(locale);
+const baseSnaps = projects.flatMap((project) =>
+	project.data.gallery.map((image, index) => ({
+		project,
+		image,
+		index,
+		text: getProjectText(project.id, locale),
+	})),
+);
+const snaps = [...baseSnaps, ...baseSnaps, ...baseSnaps];
+---
+
+<section class="snaps-shell" aria-label={copy.snaps.title}>
+	<div class="snaps-scroll" data-snaps-scroll data-base-count={baseSnaps.length}>
+		{
+			snaps.map((snap, index) => (
+				<article class="snap-card">
+					<div class="reel-card">
+						<a class="reel-frame" href={pathWithBase(`${hrefPrefix}/portfolio/${snap.project.id}/`)} aria-label={snap.text.title}>
+							<div class="reel-photo-box">
+								<img
+									src={imageSrc(snap.image.src)}
+									width={snap.image.width}
+									height={snap.image.height}
+									alt={snap.image.alt}
+									loading={index < 3 ? 'eager' : 'lazy'}
+									decoding="async"
+								/>
+							</div>
+							<div class="reel-text-box">
+								<p class="eyebrow">{copy.snaps.storyLabel} {String((index % baseSnaps.length) + 1).padStart(2, '0')}</p>
+								<h1>{snap.text.title}</h1>
+								<p>{snap.text.body[snap.index % snap.text.body.length] ?? snap.text.description}</p>
+							</div>
+						</a>
+						<div class="creator-row">
+							<span class="creator-avatar" aria-hidden="true">{site.name.slice(0, 1)}</span>
+							<span>{site.name}</span>
+						</div>
+					</div>
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<script>
+		const scroller = document.querySelector('[data-snaps-scroll]');
+		if (scroller instanceof HTMLElement) {
+			const baseCount = Number(scroller.dataset.baseCount ?? 0);
+			let itemHeight = 0;
+			let isResetting = false;
+			const shuffledGroups = Array.from(scroller.querySelectorAll('.snap-card')).slice(baseCount * 2);
+
+			const measure = () => {
+				const firstCard = scroller.querySelector('.snap-card');
+				itemHeight = firstCard instanceof HTMLElement ? firstCard.offsetHeight : 0;
+			};
+
+			const shuffleLastGroup = () => {
+				for (let i = shuffledGroups.length - 1; i > 0; i -= 1) {
+					const randomIndex = Math.floor(Math.random() * (i + 1));
+					const current = shuffledGroups[i];
+					const random = shuffledGroups[randomIndex];
+					if (current?.parentElement && random) {
+						current.parentElement.insertBefore(current, random);
+					}
+				}
+			};
+
+		const jumpToMiddle = () => {
+			measure();
+			if (!itemHeight || !baseCount) return;
+			isResetting = true;
+			scroller.scrollTop = itemHeight * baseCount;
+			requestAnimationFrame(() => {
+				isResetting = false;
+			});
+		};
+
+		const loopScroll = () => {
+			if (isResetting || !itemHeight || !baseCount) return;
+			const groupHeight = itemHeight * baseCount;
+			if (scroller.scrollTop < itemHeight * 0.5) {
+				isResetting = true;
+				scroller.scrollTop += groupHeight;
+			}
+			if (scroller.scrollTop > groupHeight * 2 - itemHeight * 0.5) {
+				isResetting = true;
+				shuffleLastGroup();
+				scroller.scrollTop -= groupHeight;
+			}
+			requestAnimationFrame(() => {
+				isResetting = false;
+			});
+		};
+
+		window.addEventListener('load', jumpToMiddle, { once: true });
+		window.addEventListener('resize', jumpToMiddle);
+		scroller.addEventListener('scroll', loopScroll, { passive: true });
+		jumpToMiddle();
+	}
+</script>
+
+<style>
+	.snaps-shell {
+		position: relative;
+		height: 100svh;
+		overflow: hidden;
+		background: #050505;
+	}
+
+	.snaps-scroll {
+		height: 100%;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		scroll-snap-type: y mandatory;
+		scrollbar-width: none;
+	}
+
+	.snaps-scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.snap-card {
+		height: 100svh;
+		display: grid;
+		place-items: center;
+		padding: 5.5rem 1rem 1rem;
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+	}
+
+	.reel-card {
+		display: grid;
+		grid-template-rows: auto auto;
+		gap: 0.85rem;
+		width: min(92vw, 420px, calc((100svh - 11rem) * 9 / 16));
+		margin-inline: auto;
+	}
+
+	.reel-frame {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		width: 100%;
+		aspect-ratio: 9 / 16;
+		border: 1px solid var(--line-strong);
+		border-radius: 16px;
+		padding: 0.75rem;
+		background: linear-gradient(180deg, #161616, #080808);
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+	}
+
+	.reel-photo-box,
+	.reel-text-box {
+		overflow: hidden;
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		background: #0e0e0e;
+	}
+
+	.reel-photo-box {
+		display: grid;
+		place-items: center;
+		height: 58%;
+	}
+
+	.reel-photo-box img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.reel-text-box {
+		display: grid;
+		align-content: start;
+		gap: 0.46rem;
+		height: calc(42% - 0.75rem);
+		margin-top: 0.75rem;
+		padding: 0.85rem;
+	}
+
+	.reel-text-box h1 {
+		max-width: 100%;
+		font-family: var(--sans);
+		font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+		font-weight: 800;
+		line-height: 1.12;
+	}
+
+	.reel-text-box p:not(.eyebrow) {
+		color: var(--muted);
+		display: -webkit-box;
+		overflow: hidden;
+		font-size: 0.92rem;
+		line-height: 1.42;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 5;
+	}
+
+	.creator-row {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		padding-inline: 0.2rem;
+		color: var(--text);
+		font-size: 0.95rem;
+		font-weight: 800;
+	}
+
+	.creator-avatar {
+		display: inline-grid;
+		place-items: center;
+		width: 2.35rem;
+		height: 2.35rem;
+		border: 1px solid var(--line-strong);
+		border-radius: 999px;
+		background: #fff;
+		color: #050505;
+		font-family: var(--serif);
+		font-size: 1.05rem;
+	}
+
+	@media (min-width: 820px) {
+		.snap-card {
+			padding-top: 5.75rem;
+		}
+
+		.reel-card {
+			width: min(390px, calc((100svh - 11.5rem) * 9 / 16));
+		}
+	}
+
+	@media (max-height: 720px) {
+		.reel-card {
+			width: min(82vw, 320px, calc((100svh - 9.5rem) * 9 / 16));
+		}
+	}
+</style>

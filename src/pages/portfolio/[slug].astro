@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContactBand from '../../components/ContactBand.astro';
-import { absoluteUrl, categoryLabels } from '../../lib/site';
+import { absoluteUrl, categoryLabels, imageSrc } from '../../lib/site';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('portfolio');
@@ -67,8 +67,8 @@ const structuredData = {
 		<section class="container gallery" aria-label={`${project.data.title} gallery`}>
 			{
 				project.data.gallery.map((image, index) => (
-					<button class="gallery-item" type="button" data-lightbox-image={image.src} data-lightbox-alt={image.alt}>
-						<img src={image.src} width={image.width} height={image.height} alt={image.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+					<button class="gallery-item" type="button" data-lightbox-image={imageSrc(image.src)} data-lightbox-alt={image.alt}>
+						<img src={imageSrc(image.src)} width={image.width} height={image.height} alt={image.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
 					</button>
 				))
 			}
