@@ -1,0 +1,214 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { absoluteUrl, categoryLabels } from '../../lib/site';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('portfolio');
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const breadcrumbs = [
+	{ name: 'Home', url: '/' },
+	{ name: 'Portfolio', url: '/portfolio/' },
+	{ name: project.data.title, url: `/portfolio/${project.id}/` },
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CreativeWork',
+	name: project.data.title,
+	description: project.data.description,
+	image: project.data.cover.src,
+	url: absoluteUrl(`/portfolio/${project.id}/`),
+	creator: {
+		'@type': 'Person',
+		name: 'Haytham Okla',
+	},
+};
+---
+
+<BaseLayout
+	title={project.data.title}
+	description={project.data.description}
+	image={project.data.cover.src}
+	canonical={`/portfolio/${project.id}/`}
+	breadcrumbs={breadcrumbs}
+	structuredData={structuredData}
+>
+	<Breadcrumbs items={breadcrumbs} />
+	<article>
+		<header class="project-hero container">
+			<div>
+				<p class="eyebrow">{categoryLabels[project.data.category]}</p>
+				<h1>{project.data.title}</h1>
+			</div>
+			<div class="project-details">
+				<p class="lead">{project.data.description}</p>
+				<dl>
+					<div><dt>Location</dt><dd>{project.data.location}</dd></div>
+					<div><dt>Year</dt><dd>{project.data.year}</dd></div>
+					{project.data.client && <div><dt>Client</dt><dd>{project.data.client}</dd></div>}
+				</dl>
+			</div>
+		</header>
+
+		<section class="container project-copy prose">
+			<Content />
+		</section>
+
+		<section class="container gallery" aria-label={`${project.data.title} gallery`}>
+			{
+				project.data.gallery.map((image, index) => (
+					<button class="gallery-item" type="button" data-lightbox-image={image.src} data-lightbox-alt={image.alt}>
+						<img src={image.src} width={image.width} height={image.height} alt={image.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+					</button>
+				))
+			}
+		</section>
+	</article>
+
+	<dialog class="lightbox" aria-label="Image preview">
+		<button type="button" data-lightbox-close aria-label="Close image preview">Close</button>
+		<img alt="" />
+	</dialog>
+
+	<ContactBand />
+
+	<script>
+		const dialog = document.querySelector('.lightbox');
+		const dialogImage = dialog?.querySelector('img');
+		const closeButton = dialog?.querySelector('[data-lightbox-close]');
+		const openers = document.querySelectorAll('[data-lightbox-image]');
+
+		openers.forEach((button) => {
+			button.addEventListener('click', () => {
+				if (!(dialog instanceof HTMLDialogElement) || !(dialogImage instanceof HTMLImageElement)) return;
+				dialogImage.src = button.getAttribute('data-lightbox-image') ?? '';
+				dialogImage.alt = button.getAttribute('data-lightbox-alt') ?? '';
+				dialog.showModal();
+			});
+		});
+
+		closeButton?.addEventListener('click', () => {
+			if (dialog instanceof HTMLDialogElement) dialog.close();
+		});
+
+		dialog?.addEventListener('click', (event) => {
+			if (event.target === dialog && dialog instanceof HTMLDialogElement) dialog.close();
+		});
+	</script>
+</BaseLayout>
+
+<style>
+	.project-hero {
+		display: grid;
+		gap: 2rem;
+		padding: 8rem 0 3rem;
+	}
+
+	.project-details {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	dl {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 0;
+	}
+
+	dt {
+		color: var(--soft);
+		font-size: 0.75rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	dd {
+		margin: 0.25rem 0 0;
+		color: var(--text);
+	}
+
+	.project-copy {
+		max-width: 760px;
+		padding-bottom: 3rem;
+	}
+
+	.gallery {
+		display: grid;
+		gap: 1rem;
+		padding-bottom: clamp(4rem, 8vw, 7rem);
+	}
+
+	.gallery-item {
+		display: block;
+		width: 100%;
+		border: 0;
+		padding: 0;
+		background: var(--surface);
+		cursor: zoom-in;
+	}
+
+	.gallery-item img {
+		width: 100%;
+		height: auto;
+	}
+
+	.lightbox {
+		width: min(94vw, 1200px);
+		border: 1px solid var(--line-strong);
+		padding: 0;
+		background: #050505;
+		color: #fff;
+	}
+
+	.lightbox::backdrop {
+		background: rgba(0, 0, 0, 0.86);
+	}
+
+	.lightbox img {
+		width: 100%;
+		max-height: 86vh;
+		object-fit: contain;
+	}
+
+	.lightbox button {
+		position: absolute;
+		top: 0.75rem;
+		right: 0.75rem;
+		border: 1px solid var(--line-strong);
+		padding: 0.55rem 0.7rem;
+		background: rgba(0, 0, 0, 0.72);
+		color: #fff;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	@media (min-width: 780px) {
+		.project-hero {
+			grid-template-columns: 0.9fr 1.1fr;
+			align-items: end;
+			padding-top: 10rem;
+		}
+
+		.gallery {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			align-items: start;
+		}
+
+		.gallery-item:first-child {
+			grid-column: 1 / -1;
+		}
+	}
+</style>

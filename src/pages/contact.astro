@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { site } from '../lib/site';
+
+const breadcrumbs = [
+	{ name: 'Home', url: '/' },
+	{ name: 'Contact', url: '/contact/' },
+];
+---
+
+<BaseLayout
+	title="Contact"
+	description="Contact Haytham Okla for photography bookings, editorial assignments, brand imagery, and creative collaborations."
+	canonical="/contact/"
+	breadcrumbs={breadcrumbs}
+>
+	<Breadcrumbs items={breadcrumbs} />
+	<PageIntro eyebrow="Contact" title="Start with the story." text="For commissions, collaborations, licensing, and editorial assignments, share a few details and I will respond with next steps." />
+
+	<section class="container contact-layout">
+		<form class="contact-form" aria-label="Contact form placeholder">
+			<label>
+				<span>Name</span>
+				<input type="text" name="name" autocomplete="name" placeholder="Your name" />
+			</label>
+			<label>
+				<span>Email</span>
+				<input type="email" name="email" autocomplete="email" placeholder="you@example.com" />
+			</label>
+			<label>
+				<span>Project Type</span>
+				<select name="project">
+					<option>Editorial assignment</option>
+					<option>Personal branding</option>
+					<option>Commercial campaign</option>
+					<option>Travel story</option>
+				</select>
+			</label>
+			<label>
+				<span>Message</span>
+				<textarea name="message" rows="7" placeholder="Tell me what you are building, where it will live, and what the images need to feel like."></textarea>
+			</label>
+			<button class="button" type="button">Form placeholder</button>
+		</form>
+
+		<aside class="contact-panel">
+			<div>
+				<p class="eyebrow">Direct</p>
+				<a href={`mailto:${site.email}`}>{site.email}</a>
+				<a href={`tel:${site.phone.replaceAll(' ', '')}`}>{site.phone}</a>
+				<p>{site.location}</p>
+			</div>
+			<div>
+				<p class="eyebrow">Social</p>
+				<nav aria-label="Social media">
+					{site.socials.map((social) => <a href={social.href} rel="noreferrer">{social.label}</a>)}
+				</nav>
+			</div>
+		</aside>
+	</section>
+</BaseLayout>
+
+<style>
+	.contact-layout {
+		display: grid;
+		gap: 2rem;
+		padding-bottom: clamp(4rem, 8vw, 7rem);
+	}
+
+	.contact-form,
+	.contact-panel {
+		border-top: 1px solid var(--line);
+		padding-top: 1rem;
+	}
+
+	.contact-form {
+		display: grid;
+		gap: 1rem;
+	}
+
+	label {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	label span {
+		color: var(--muted);
+		font-size: 0.78rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	input,
+	select,
+	textarea {
+		width: 100%;
+		border: 1px solid var(--line);
+		border-radius: 0;
+		background: #0b0b0b;
+		color: #fff;
+		font: inherit;
+		padding: 0.9rem;
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	.contact-form .button {
+		width: fit-content;
+	}
+
+	.contact-panel {
+		display: grid;
+		align-content: start;
+		gap: 2rem;
+	}
+
+	.contact-panel div,
+	.contact-panel nav {
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.contact-panel a,
+	.contact-panel p:not(.eyebrow) {
+		color: var(--muted);
+	}
+
+	@media (min-width: 780px) {
+		.contact-layout {
+			grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+		}
+	}
+</style>

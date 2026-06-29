@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { pathWithBase, readingTime } from '../lib/site';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const minutes = readingTime(post.body ?? '');
+---
+
+<article class="blog-card">
+	<a class="image-frame" href={pathWithBase(`/blog/${post.id}/`)} aria-label={`Read ${post.data.title}`}>
+		<img
+			src={post.data.cover.src}
+			width={post.data.cover.width}
+			height={post.data.cover.height}
+			alt={post.data.cover.alt}
+			loading="lazy"
+			decoding="async"
+		/>
+	</a>
+	<div class="card">
+		<div class="meta">
+			<time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+			<span>{minutes} min read</span>
+		</div>
+		<h3><a href={pathWithBase(`/blog/${post.id}/`)}>{post.data.title}</a></h3>
+		<p class="muted">{post.data.description}</p>
+	</div>
+</article>
+
+<style>
+	.blog-card {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.image-frame {
+		aspect-ratio: 16 / 11;
+	}
+</style>

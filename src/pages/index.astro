@@ -1,11 +1,160 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import ContactBand from '../components/ContactBand.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { imageCatalog, pathWithBase, site } from '../lib/site';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = (await getCollection('portfolio')).sort((a, b) => Number(b.data.featured) - Number(a.data.featured)).slice(0, 3);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: site.name,
+	url: site.url + site.base,
+	description: site.description,
+	inLanguage: 'en',
+};
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={site.title} description={site.description} image={imageCatalog.hero.src} structuredData={structuredData}>
+	<section class="hero" aria-label="Introduction">
+		<img
+			src={imageCatalog.hero.src}
+			width={imageCatalog.hero.width}
+			height={imageCatalog.hero.height}
+			alt={imageCatalog.hero.alt}
+			fetchpriority="high"
+			decoding="async"
+		/>
+		<div class="hero-content">
+			<p class="eyebrow">Amsterdam based visual storyteller</p>
+			<h1>Still frames with a cinematic pulse.</h1>
+			<p class="lead">
+				I create refined photography for people, places, and brands that want their story to feel
+				tactile, intentional, and unforgettable.
+			</p>
+			<div class="button-row">
+				<a class="button" href={pathWithBase('/portfolio/')}>View portfolio</a>
+				<a class="button secondary" href={pathWithBase('/contact/')}>Book a session</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<SectionHeader eyebrow="Featured portfolio" title="Editorial calm, cinematic edge." text="Selected work across travel, portrait, commercial, and street stories." />
+		<div class="featured-grid">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</section>
+
+	<section class="section container split-feature">
+		<div>
+			<p class="eyebrow">Approach</p>
+			<h2>Luxury without noise.</h2>
+		</div>
+		<div class="prose">
+			<p>
+				The work is quiet by design: natural light, precise framing, and a restrained edit that lets the
+				subject carry the frame. Every commission is planned around mood, movement, location, and the
+				final context where the image will live.
+			</p>
+		</div>
+	</section>
+
+	<section class="section container">
+		<SectionHeader eyebrow="Journal" title="Notes from the field." text="Short essays on photography, travel, gear, creative process, and visual storytelling." />
+		<div class="blog-grid">
+			{posts.map((post) => <BlogCard post={post} />)}
+		</div>
+	</section>
+
+	<ContactBand />
+</BaseLayout>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: 100svh;
+		display: grid;
+		align-items: end;
+		overflow: hidden;
+		padding: 7rem 1rem 3rem;
+	}
+
+	.hero::after {
+		position: absolute;
+		inset: 0;
+		content: '';
+		background:
+			linear-gradient(90deg, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.28) 58%, rgba(0, 0, 0, 0.68)),
+			linear-gradient(0deg, #050505, transparent 35%);
+	}
+
+	.hero > img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		gap: 1.25rem;
+		width: min(100%, var(--max));
+		margin-inline: auto;
+		animation: rise 700ms ease both;
+	}
+
+	.featured-grid,
+	.blog-grid {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.split-feature {
+		border-block: 1px solid var(--line);
+	}
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(18px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (min-width: 780px) {
+		.hero {
+			padding-inline: 2rem;
+		}
+
+		.hero-content {
+			padding-bottom: 5vh;
+		}
+
+		.featured-grid {
+			grid-template-columns: 1.2fr 0.8fr 1fr;
+			align-items: start;
+		}
+
+		.blog-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.split-feature {
+			grid-template-columns: 0.9fr 1.1fr;
+			display: grid;
+			gap: 2rem;
+		}
+	}
+</style>

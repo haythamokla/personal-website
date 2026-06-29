@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContactBand from '../components/ContactBand.astro';
+import PageIntro from '../components/PageIntro.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { imageCatalog } from '../lib/site';
+
+const breadcrumbs = [
+	{ name: 'Home', url: '/' },
+	{ name: 'About', url: '/about/' },
+];
+
+const equipment = ['Full-frame mirrorless bodies', 'Fast prime lenses', 'Compact travel zoom', 'Portable LED lighting', 'Color-managed editing workflow'];
+const skills = ['Editorial direction', 'Portrait lighting', 'Travel storytelling', 'Commercial still life', 'Post-production', 'Brand image systems'];
+const languages = ['English', 'Dutch', 'Arabic', 'Turkish'];
+---
+
+<BaseLayout
+	title="About"
+	description="Learn about Haytham Okla's photography journey, visual approach, equipment, skills, and languages."
+	canonical="/about/"
+	breadcrumbs={breadcrumbs}
+>
+	<Breadcrumbs items={breadcrumbs} />
+	<PageIntro eyebrow="About" title="Quiet precision, human stories." text="My work lives between documentary patience and editorial control: images that feel composed, but never overworked." />
+
+	<section class="container about-grid">
+		<div class="image-frame">
+			<img src={imageCatalog.studio.src} width={imageCatalog.studio.width} height={imageCatalog.studio.height} alt={imageCatalog.studio.alt} loading="eager" decoding="async" />
+		</div>
+		<div class="prose">
+			<h2>Personal Story</h2>
+			<p>
+				Photography began as a way to slow down and understand places more carefully. Over time, that
+				curiosity became a visual language built on light, atmosphere, and the dignity of simple
+				compositions.
+			</p>
+			<p>
+				Today, I work with individuals and brands who want imagery that feels premium without becoming
+				loud. The process is collaborative, calm, and shaped around the story each project needs to tell.
+			</p>
+		</div>
+	</section>
+
+	<section class="section container">
+		<SectionHeader eyebrow="Journey" title="From observation to direction." text="The creative practice keeps one foot in candid discovery and one foot in planned editorial structure." />
+		<div class="timeline">
+			<article><span>01</span><h3>Seeing</h3><p class="muted">Learning to read light, gesture, space, and visual rhythm before lifting the camera.</p></article>
+			<article><span>02</span><h3>Shaping</h3><p class="muted">Directing scenes with restraint so the final frame remains believable and alive.</p></article>
+			<article><span>03</span><h3>Refining</h3><p class="muted">Editing for consistency, color discipline, and long-term brand usefulness.</p></article>
+		</div>
+	</section>
+
+	<section class="section container lists">
+		<div>
+			<p class="eyebrow">Equipment</p>
+			<ul>{equipment.map((item) => <li>{item}</li>)}</ul>
+		</div>
+		<div>
+			<p class="eyebrow">Skills</p>
+			<ul>{skills.map((item) => <li>{item}</li>)}</ul>
+		</div>
+		<div>
+			<p class="eyebrow">Languages</p>
+			<ul>{languages.map((item) => <li>{item}</li>)}</ul>
+		</div>
+	</section>
+
+	<ContactBand />
+</BaseLayout>
+
+<style>
+	.about-grid {
+		display: grid;
+		gap: 2rem;
+		padding-bottom: clamp(3rem, 7vw, 6rem);
+	}
+
+	.about-grid .image-frame {
+		aspect-ratio: 4 / 5;
+	}
+
+	.timeline,
+	.lists {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.timeline article,
+	.lists > div {
+		border-top: 1px solid var(--line);
+		padding-top: 1rem;
+	}
+
+	.timeline span {
+		color: var(--soft);
+		font-weight: 800;
+		letter-spacing: 0.12em;
+	}
+
+	.timeline h3 {
+		margin: 0.75rem 0;
+	}
+
+	ul {
+		display: grid;
+		gap: 0.7rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+		color: var(--muted);
+	}
+
+	li {
+		border-bottom: 1px solid var(--line);
+		padding-bottom: 0.7rem;
+	}
+
+	@media (min-width: 780px) {
+		.about-grid {
+			grid-template-columns: 0.8fr 1fr;
+			align-items: center;
+		}
+
+		.timeline,
+		.lists {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+</style>

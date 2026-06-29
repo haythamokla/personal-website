@@ -1,0 +1,63 @@
+---
+import { pathWithBase, site } from '../lib/site';
+---
+
+<section class="contact-band">
+	<div class="container contact-inner">
+		<div>
+			<p class="eyebrow">Bookings and collaborations</p>
+			<h2>Let the next frame feel intentional.</h2>
+		</div>
+		<div class="contact-actions">
+			<p class="lead">
+				Available for editorial assignments, refined personal branding, commercial campaigns, and
+				travel-led storytelling.
+			</p>
+			<div class="button-row">
+				<a class="button" href={pathWithBase('/contact/')}>Start a project</a>
+				<a class="button secondary" href={`mailto:${site.email}`}>{site.email}</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact-band {
+		padding: clamp(4rem, 9vw, 8rem) 0;
+		background: #fff;
+		color: #050505;
+	}
+
+	.contact-band .eyebrow,
+	.contact-band .lead {
+		color: #4c4c48;
+	}
+
+	.contact-inner {
+		display: grid;
+		gap: 2rem;
+	}
+
+	.contact-band .button {
+		background: #050505;
+		color: #fff;
+		border-color: #050505;
+	}
+
+	.contact-band .button.secondary {
+		background: transparent;
+		color: #050505;
+	}
+
+	.contact-actions {
+		display: grid;
+		gap: 1.3rem;
+	}
+
+	@media (min-width: 780px) {
+		.contact-inner {
+			grid-template-columns: 0.9fr 1.1fr;
+			align-items: end;
+		}
+	}
+</style>

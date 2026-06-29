@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageIntro from '../../components/PageIntro.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const categories = [...new Set(posts.map((post) => post.data.category))];
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+const breadcrumbs = [
+	{ name: 'Home', url: '/' },
+	{ name: 'Blog', url: '/blog/' },
+];
+---
+
+<BaseLayout
+	title="Blog"
+	description="Photography essays, field notes, gear thoughts, and visual direction insights by Haytham Okla."
+	canonical="/blog/"
+	breadcrumbs={breadcrumbs}
+>
+	<Breadcrumbs items={breadcrumbs} />
+	<PageIntro eyebrow="Journal" title="Essays for sharper seeing." text="A Markdown-powered journal for field notes, creative process, gear, visual direction, and the small decisions behind cinematic images." />
+
+	<section class="container taxonomy" aria-label="Blog taxonomy">
+		<div>
+			<p class="eyebrow">Categories</p>
+			<div>{categories.map((category) => <span>{category}</span>)}</div>
+		</div>
+		<div>
+			<p class="eyebrow">Tags</p>
+			<div>{tags.map((tag) => <span>{tag}</span>)}</div>
+		</div>
+	</section>
+
+	<section class="container post-list" aria-label="Article listing">
+		{posts.map((post) => <BlogCard post={post} />)}
+	</section>
+</BaseLayout>
+
+<style>
+	.taxonomy {
+		display: grid;
+		gap: 1.5rem;
+		border-block: 1px solid var(--line);
+		padding-block: 1.5rem;
+	}
+
+	.taxonomy div div {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-top: 0.8rem;
+	}
+
+	.taxonomy span {
+		border: 1px solid var(--line);
+		padding: 0.5rem 0.7rem;
+		color: var(--muted);
+		font-size: 0.78rem;
+	}
+
+	.post-list {
+		display: grid;
+		gap: 1.25rem;
+		padding: clamp(3rem, 7vw, 6rem) 0 clamp(4rem, 8vw, 7rem);
+	}
+
+	@media (min-width: 780px) {
+		.taxonomy {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.post-list {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+</style>

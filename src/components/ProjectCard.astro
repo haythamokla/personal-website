@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryLabels, pathWithBase } from '../lib/site';
+
+interface Props {
+	project: CollectionEntry<'portfolio'>;
+	priority?: boolean;
+}
+
+const { project, priority = false } = Astro.props;
+---
+
+<article class="project-card">
+	<a class="image-frame" href={pathWithBase(`/portfolio/${project.id}/`)} aria-label={`View ${project.data.title}`}>
+		<img
+			src={project.data.cover.src}
+			width={project.data.cover.width}
+			height={project.data.cover.height}
+			alt={project.data.cover.alt}
+			loading={priority ? 'eager' : 'lazy'}
+			decoding="async"
+		/>
+	</a>
+	<div class="card">
+		<div class="meta">
+			<span>{categoryLabels[project.data.category]}</span>
+			<span>{project.data.year}</span>
+		</div>
+		<h3><a href={pathWithBase(`/portfolio/${project.id}/`)}>{project.data.title}</a></h3>
+		<p class="muted">{project.data.description}</p>
+	</div>
+</article>
+
+<style>
+	.project-card {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.image-frame {
+		aspect-ratio: 4 / 5;
+	}
+
+	.project-card:nth-child(2) .image-frame {
+		aspect-ratio: 1 / 1.25;
+	}
+</style>

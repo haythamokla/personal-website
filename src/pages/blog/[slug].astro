@@ -1,0 +1,112 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { absoluteUrl, readingTime, site } from '../../lib/site';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const minutes = readingTime(post.body ?? '');
+const breadcrumbs = [
+	{ name: 'Home', url: '/' },
+	{ name: 'Blog', url: '/blog/' },
+	{ name: post.data.title, url: `/blog/${post.id}/` },
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: post.data.title,
+	description: post.data.description,
+	image: post.data.cover.src,
+	datePublished: post.data.pubDate.toISOString(),
+	dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+	author: {
+		'@type': 'Person',
+		name: site.name,
+	},
+	mainEntityOfPage: absoluteUrl(`/blog/${post.id}/`),
+};
+---
+
+<BaseLayout
+	title={post.data.title}
+	description={post.data.description}
+	image={post.data.cover.src}
+	type="article"
+	canonical={`/blog/${post.id}/`}
+	breadcrumbs={breadcrumbs}
+	structuredData={structuredData}
+>
+	<Breadcrumbs items={breadcrumbs} />
+	<article class="article container">
+		<header class="article-header">
+			<div class="meta">
+				<time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+				<span>{post.data.category}</span>
+				<span>{minutes} min read</span>
+			</div>
+			<h1>{post.data.title}</h1>
+			<p class="lead">{post.data.description}</p>
+		</header>
+		<img class="cover" src={post.data.cover.src} width={post.data.cover.width} height={post.data.cover.height} alt={post.data.cover.alt} fetchpriority="high" decoding="async" />
+		<div class="prose article-body">
+			<Content />
+		</div>
+		<footer class="tags" aria-label="Article tags">
+			{post.data.tags.map((tag) => <span>{tag}</span>)}
+		</footer>
+	</article>
+	<ContactBand />
+</BaseLayout>
+
+<style>
+	.article {
+		padding-bottom: clamp(4rem, 8vw, 7rem);
+	}
+
+	.article-header {
+		display: grid;
+		gap: 1.2rem;
+		padding: 2rem 0 3rem;
+	}
+
+	.article-header h1 {
+		max-width: 12ch;
+	}
+
+	.cover {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.article-body {
+		max-width: 760px;
+		margin: 3rem auto 0;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		max-width: 760px;
+		margin: 2rem auto 0;
+	}
+
+	.tags span {
+		border: 1px solid var(--line);
+		padding: 0.5rem 0.7rem;
+		color: var(--muted);
+		font-size: 0.78rem;
+	}
+</style>
