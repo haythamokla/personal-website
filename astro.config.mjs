@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://forsimo.github.io',
-	base: '/haytham-portfolio',
+	site: 'https://haythamokla.github.io',
+	base: '/personal-website',
 });

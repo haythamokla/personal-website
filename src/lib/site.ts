@@ -14,8 +14,8 @@ export const site = {
 	title: 'Haytham Okla | Luxury Photography Portfolio',
 	description:
 		'Luxury personal brand photography portfolio featuring cinematic stories, editorial projects, travel essays, and refined visual direction.',
-	url: 'https://forsimo.github.io',
-	base: '/haytham-portfolio',
+	url: 'https://haythamokla.github.io',
+	base: '/personal-website',
 	author: 'Haytham Okla',
 	email: 'hello@haythamokla.com',
 	phone: '+31 6 0000 0000',
