@@ -14,8 +14,8 @@ export const site = {
 	title: 'Haytham Okla | Luxury Photography Portfolio',
 	description:
 		'Luxury personal brand photography portfolio featuring cinematic stories, editorial projects, travel essays, and refined visual direction.',
-	url: 'https://haythamokla.github.io',
-	base: '/personal-website',
+	url: 'https://haythamokla.com',
+	base: '/',
 	author: 'Haytham Okla',
 	email: 'hello@haythamokla.com',
 	phone: '+31 6 0000 0000',
@@ -133,6 +133,7 @@ export function imageSrc(src: string) {
 
 export function pathWithBase(path = '/') {
 	const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+	if (site.base === '/') return normalizedPath;
 	if (normalizedPath === site.base || normalizedPath.startsWith(`${site.base}/`)) {
 		return normalizedPath;
 	}
