@@ -6,9 +6,10 @@ import PageIntro from '../../components/PageIntro.astro';
 import { getCopy, getProjectText } from '../../lib/copy';
 import { imageSrc, pathWithBase } from '../../lib/site';
 
-const projects = (await getCollection('portfolio')).sort((a, b) => b.data.year - a.data.year);
+const categoryOrder = ['afterglow', 'atmosphere', 'human', 'monochrome'];
+const projects = (await getCollection('portfolio')).sort((a, b) => categoryOrder.indexOf(a.data.category) - categoryOrder.indexOf(b.data.category));
 const copy = getCopy('en');
-const categories = [...new Set(projects.map((project) => project.data.category))];
+const categories = categoryOrder;
 const categoryAnchors = Object.fromEntries(
 	categories.map((category) => [category, projects.find((project) => project.data.category === category)?.id]),
 );
@@ -41,12 +42,13 @@ const breadcrumbs = [
 						width={project.data.cover.width}
 						height={project.data.cover.height}
 						alt={project.data.cover.alt}
+						sizes="(min-width: 1020px) 33vw, (min-width: 680px) 50vw, 100vw"
 						loading={index < 2 ? 'eager' : 'lazy'}
 						decoding="async"
 					/>
 					<span>
 						<strong>{getProjectText(project.id, 'en').title}</strong>
-						<small>{copy.categories[project.data.category]} / {project.data.year}</small>
+						<small>{getProjectText(project.id, 'en').description}</small>
 					</span>
 				</a>
 			))
@@ -103,10 +105,14 @@ const breadcrumbs = [
 	}
 
 	.masonry-item small {
+		display: -webkit-box;
+		overflow: hidden;
 		color: var(--muted);
-		font-weight: 800;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		font-size: 0.84rem;
+		font-weight: 600;
+		line-height: 1.45;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
 	}
 
 	.masonry-item:hover img {

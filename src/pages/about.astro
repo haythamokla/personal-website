@@ -15,7 +15,7 @@ const breadcrumbs = [
 
 const equipment = ['Full-frame mirrorless bodies', 'Fast prime lenses', 'Compact travel zoom', 'Portable LED lighting', 'Color-managed editing workflow'];
 const skills = ['Editorial direction', 'Portrait lighting', 'Travel storytelling', 'Commercial still life', 'Post-production', 'Brand image systems'];
-const languages = ['English', 'Dutch', 'Arabic', 'Turkish'];
+const languages = ['English', 'Turkish', 'Dutch', 'Arabic'];
 ---
 
 <BaseLayout
@@ -55,6 +55,7 @@ const languages = ['English', 'Dutch', 'Arabic', 'Turkish'];
 		</div>
 		<div>
 			<p class="eyebrow">{copy.about.languages}</p>
+			<p class="muted list-note">{copy.about.languageText}</p>
 			<ul>{languages.map((item) => <li>{item}</li>)}</ul>
 		</div>
 	</section>
@@ -93,6 +94,10 @@ const languages = ['English', 'Dutch', 'Arabic', 'Turkish'];
 
 	.timeline h3 {
 		margin: 0.75rem 0;
+	}
+
+	.list-note {
+		margin-top: 1rem;
 	}
 
 	ul {

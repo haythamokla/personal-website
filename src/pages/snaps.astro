@@ -5,7 +5,8 @@ import SnapsFeed from '../components/SnapsFeed.astro';
 import { getCopy } from '../lib/copy';
 
 const copy = getCopy('en');
-const projects = (await getCollection('portfolio')).sort((a, b) => b.data.year - a.data.year);
+const categoryOrder = ['afterglow', 'atmosphere', 'human', 'monochrome'];
+const projects = (await getCollection('portfolio')).sort((a, b) => categoryOrder.indexOf(a.data.category) - categoryOrder.indexOf(b.data.category));
 const breadcrumbs = [
 	{ name: copy.common.home, url: '/' },
 	{ name: copy.snaps.title, url: '/snaps/' },

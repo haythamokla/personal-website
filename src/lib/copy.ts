@@ -34,7 +34,7 @@ const en = {
 		title: 'Haytham Okla | Luxury Photography Portfolio',
 		description:
 			'Luxury personal brand photography portfolio featuring cinematic stories, editorial projects, travel essays, and refined visual direction.',
-		eyebrow: 'Amsterdam based visual storyteller',
+		eyebrow: 'South Holland based visual storyteller',
 		heading: 'Still frames with a cinematic pulse.',
 		intro:
 			'I create refined photography for people, places, and brands that want their story to feel tactile, intentional, and unforgettable.',
@@ -42,11 +42,11 @@ const en = {
 		contactCta: 'Book a session',
 		featuredEyebrow: 'Featured portfolio',
 		featuredTitle: 'Editorial calm, cinematic edge.',
-		featuredText: 'Selected work across travel, portrait, commercial, and street stories.',
+		featuredText: 'Selected work across Afterglow, Atmosphere, Human, and Monochrome.',
 		approachEyebrow: 'Approach',
-		approachTitle: 'Luxury without noise.',
+		approachTitle: 'Quiet light, human stories.',
 		approachText:
-			'The work is quiet by design: natural light, precise framing, and a restrained edit that lets the subject carry the frame. Every commission is planned around mood, movement, location, and the final context where the image will live.',
+			'The work follows the same rhythm as the portfolio: quiet light, honest emotion, careful framing, and images that leave room for the story to breathe.',
 		journalEyebrow: 'Journal',
 		journalTitle: 'Notes from the field.',
 		journalText: 'Short essays on photography, travel, gear, creative process, and visual storytelling.',
@@ -61,10 +61,10 @@ const en = {
 	},
 	portfolio: {
 		title: 'Portfolio',
-		description: 'Explore luxury travel, portrait, editorial, commercial, and street photography projects by Haytham Okla.',
+		description: 'Explore four minimal photography collections by Haytham Okla: Afterglow, Atmosphere, Human, and Monochrome.',
 		eyebrow: 'Portfolio',
 		heading: 'Selected visual stories.',
-		text: 'A curated archive of photographic work across personal commissions, editorial essays, travel stories, and brand-led image systems.',
+		text: 'A curated archive of quiet light, atmosphere, human stories, and monochrome studies.',
 		galleryLabel: 'Portfolio gallery',
 		categoriesLabel: 'Portfolio categories',
 	},
@@ -99,6 +99,7 @@ const en = {
 		equipment: 'Equipment',
 		skills: 'Skills',
 		languages: 'Languages',
+		languageText: 'The service is available in several languages.',
 	},
 	contact: {
 		title: 'Contact',
@@ -114,15 +115,14 @@ const en = {
 	contactBand: {
 		eyebrow: 'Bookings and collaborations',
 		heading: 'Let the next frame feel intentional.',
-		text: 'Available for editorial assignments, refined personal branding, commercial campaigns, and travel-led storytelling.',
+		text: 'Available for portraits, couples, lifestyle sessions, and visual stories with intention.',
 		cta: 'Start a project',
 	},
 	categories: {
-		editorial: 'Editorial',
-		travel: 'Travel',
-		portrait: 'Portrait',
-		commercial: 'Commercial',
-		street: 'Street',
+		afterglow: 'Afterglow',
+		atmosphere: 'Atmosphere',
+		human: 'Human',
+		monochrome: 'Monochrome',
 	},
 } as const;
 
@@ -148,7 +148,7 @@ const nl = {
 		title: 'Haytham Okla | Luxe Fotografie Portfolio',
 		description:
 			'Luxe persoonlijk merkportfolio met filmische verhalen, editoriale projecten, reisessays en verfijnde visuele regie.',
-		eyebrow: 'Visuele verhalenverteller uit Amsterdam',
+		eyebrow: 'Visuele verhalenverteller uit Zuid-Holland',
 		heading: 'Stille beelden met een filmische hartslag.',
 		intro:
 			'Ik maak verfijnde fotografie voor mensen, plekken en merken die hun verhaal tastbaar, doelgericht en onvergetelijk willen laten voelen.',
@@ -156,11 +156,11 @@ const nl = {
 		contactCta: 'Boek een sessie',
 		featuredEyebrow: 'Uitgelicht portfolio',
 		featuredTitle: 'Editorale rust, filmische scherpte.',
-		featuredText: 'Geselecteerd werk uit reis-, portret-, commerciële en straatverhalen.',
+		featuredText: 'Geselecteerd werk uit Nagloed, Atmosfeer, Menselijk en Monochroom.',
 		approachEyebrow: 'Aanpak',
-		approachTitle: 'Luxe zonder lawaai.',
+		approachTitle: 'Stil licht, menselijke verhalen.',
 		approachText:
-			'Het werk is bewust rustig: natuurlijk licht, precieze kadrering en een beheerste nabewerking waardoor het onderwerp het beeld draagt. Elke opdracht wordt gepland rond sfeer, beweging, locatie en de uiteindelijke plek waar het beeld zal leven.',
+			'Het werk volgt hetzelfde ritme als het portfolio: stil licht, eerlijke emotie, zorgvuldige kadrering en beelden die ruimte laten voor het verhaal.',
 		journalEyebrow: 'Journal',
 		journalTitle: 'Notities uit het veld.',
 		journalText: 'Korte essays over fotografie, reizen, apparatuur, creatief proces en visuele storytelling.',
@@ -175,10 +175,10 @@ const nl = {
 	},
 	portfolio: {
 		title: 'Portfolio',
-		description: 'Ontdek luxe reis-, portret-, editoriale, commerciële en straatfotografieprojecten van Haytham Okla.',
+		description: 'Ontdek vier minimale fotocollecties van Haytham Okla: Nagloed, Atmosfeer, Menselijk en Monochroom.',
 		eyebrow: 'Portfolio',
 		heading: 'Geselecteerde visuele verhalen.',
-		text: 'Een zorgvuldig samengesteld archief van werk voor persoonlijke opdrachten, editoriale essays, reisverhalen en merksystemen.',
+		text: 'Een zorgvuldig samengesteld archief van stil licht, atmosfeer, menselijke verhalen en monochrome studies.',
 		galleryLabel: 'Portfolio galerij',
 		categoriesLabel: 'Portfolio categorieën',
 	},
@@ -213,6 +213,7 @@ const nl = {
 		equipment: 'Apparatuur',
 		skills: 'Vaardigheden',
 		languages: 'Talen',
+		languageText: 'De service is beschikbaar in meerdere talen.',
 	},
 	contact: {
 		title: 'Contact',
@@ -228,15 +229,14 @@ const nl = {
 	contactBand: {
 		eyebrow: 'Boekingen en samenwerkingen',
 		heading: 'Laat het volgende beeld doelgericht voelen.',
-		text: 'Beschikbaar voor editoriale opdrachten, verfijnde personal branding, commerciële campagnes en reisgedreven storytelling.',
+		text: 'Beschikbaar voor portretten, koppels, lifestyle-sessies en visuele verhalen met intentie.',
 		cta: 'Start een project',
 	},
 	categories: {
-		editorial: 'Editorial',
-		travel: 'Reizen',
-		portrait: 'Portret',
-		commercial: 'Commercieel',
-		street: 'Straat',
+		afterglow: 'Nagloed',
+		atmosphere: 'Atmosfeer',
+		human: 'Menselijk',
+		monochrome: 'Monochroom',
 	},
 } as const;
 
@@ -261,18 +261,18 @@ const ar = {
 	home: {
 		title: 'هيثم عقلة | بورتفوليو تصوير فاخر',
 		description: 'بورتفوليو شخصي فاخر يضم قصصاً سينمائية ومشاريع تحريرية ومقالات سفر واتجاهاً بصرياً راقياً.',
-		eyebrow: 'راوٍ بصري مقيم في أمستردام',
+		eyebrow: 'راوٍ بصري مقيم في جنوب هولندا',
 		heading: 'لقطات ثابتة بنبض سينمائي.',
 		intro: 'أصنع صوراً راقية للأشخاص والأماكن والعلامات التي تريد أن يبدو قصتها ملموسة ومقصودة ولا تُنسى.',
 		portfolioCta: 'شاهد الأعمال',
 		contactCta: 'احجز جلسة',
 		featuredEyebrow: 'أعمال مختارة',
 		featuredTitle: 'هدوء تحريري وحافة سينمائية.',
-		featuredText: 'مختارات من قصص السفر والبورتريه والعمل التجاري والشارع.',
+		featuredText: 'مختارات من الوهج الأخير والأجواء والإنسان وأحادي اللون.',
 		approachEyebrow: 'الأسلوب',
-		approachTitle: 'فخامة بلا ضجيج.',
+		approachTitle: 'ضوء هادئ، وقصص إنسانية.',
 		approachText:
-			'العمل هادئ عمداً: ضوء طبيعي، تكوين دقيق، وتحرير متزن يترك للموضوع أن يحمل الصورة. كل مهمة تُبنى حول المزاج والحركة والموقع والسياق النهائي الذي ستعيش فيه الصورة.',
+			'يتبع العمل نفس إيقاع البورتفوليو: ضوء هادئ، إحساس صادق، تكوين دقيق، وصور تترك مساحة للقصة كي تتنفس.',
 		journalEyebrow: 'اليوميات',
 		journalTitle: 'ملاحظات من الميدان.',
 		journalText: 'مقالات قصيرة عن التصوير والسفر والمعدات والعملية الإبداعية وسرد القصص بصرياً.',
@@ -287,10 +287,10 @@ const ar = {
 	},
 	portfolio: {
 		title: 'الأعمال',
-		description: 'استكشف مشاريع تصوير السفر والبورتريه والتحرير والتجارة والشارع الفاخرة لهيثم عقلة.',
+		description: 'استكشف أربع مجموعات تصوير بسيطة لهيثم عقلة: الوهج الأخير، الأجواء، الإنسان، وأحادي اللون.',
 		eyebrow: 'الأعمال',
 		heading: 'قصص بصرية مختارة.',
-		text: 'أرشيف منسق لأعمال فوتوغرافية عبر التكليفات الشخصية والمقالات التحريرية وقصص السفر وأنظمة الصور للعلامات.',
+		text: 'أرشيف منسق للضوء الهادئ، والأجواء، والقصص الإنسانية، ودراسات الأبيض والأسود.',
 		galleryLabel: 'معرض الأعمال',
 		categoriesLabel: 'تصنيفات الأعمال',
 	},
@@ -325,6 +325,7 @@ const ar = {
 		equipment: 'المعدات',
 		skills: 'المهارات',
 		languages: 'اللغات',
+		languageText: 'الخدمة متاحة بعدة لغات.',
 	},
 	contact: {
 		title: 'تواصل',
@@ -340,15 +341,14 @@ const ar = {
 	contactBand: {
 		eyebrow: 'الحجوزات والتعاون',
 		heading: 'لنجعل الإطار القادم مقصوداً.',
-		text: 'متاح للمهام التحريرية، الهوية الشخصية الراقية، الحملات التجارية، وسرد السفر بصرياً.',
+		text: 'متاح للبورتريهات، والأزواج، وجلسات اللايف ستايل، والقصص البصرية ذات النية الواضحة.',
 		cta: 'ابدأ مشروعاً',
 	},
 	categories: {
-		editorial: 'تحريري',
-		travel: 'سفر',
-		portrait: 'بورتريه',
-		commercial: 'تجاري',
-		street: 'شارع',
+		afterglow: 'الوهج الأخير',
+		atmosphere: 'الأجواء',
+		human: 'الإنسان',
+		monochrome: 'أحادي اللون',
 	},
 } as const;
 
@@ -373,18 +373,18 @@ const tr = {
 	home: {
 		title: 'Haytham Okla | Lüks Fotoğraf Portfolyosu',
 		description: 'Sinematik hikayeler, editoryal projeler, seyahat yazıları ve rafine görsel yönlendirme içeren lüks kişisel marka portfolyosu.',
-		eyebrow: 'Amsterdam merkezli görsel hikaye anlatıcısı',
+		eyebrow: 'Güney Hollanda merkezli görsel hikaye anlatıcısı',
 		heading: 'Sinematik nabzı olan durağan kareler.',
 		intro: 'Hikayesinin dokunsal, bilinçli ve unutulmaz hissettirmesini isteyen insanlar, yerler ve markalar için rafine fotoğraf üretirim.',
 		portfolioCta: 'Portfolyoyu gör',
 		contactCta: 'Seans ayır',
 		featuredEyebrow: 'Öne çıkan portfolyo',
 		featuredTitle: 'Editoryal sakinlik, sinematik keskinlik.',
-		featuredText: 'Seyahat, portre, ticari ve sokak hikayelerinden seçilmiş çalışmalar.',
+		featuredText: 'Gün Batımı Işığı, Atmosfer, İnsan ve Monokromdan seçilmiş çalışmalar.',
 		approachEyebrow: 'Yaklaşım',
-		approachTitle: 'Gürültüsüz lüks.',
+		approachTitle: 'Sessiz ışık, insan hikayeleri.',
 		approachText:
-			'İş bilinçli olarak sakindir: doğal ışık, hassas kadraj ve öznenin kareyi taşımasına izin veren ölçülü bir düzenleme. Her çekim ruh hali, hareket, konum ve görüntünün yaşayacağı son bağlam etrafında planlanır.',
+			'İş, portfolyonun ritmini takip eder: sessiz ışık, dürüst duygu, dikkatli kadraj ve hikayenin nefes almasına alan bırakan görüntüler.',
 		journalEyebrow: 'Günlük',
 		journalTitle: 'Sahadan notlar.',
 		journalText: 'Fotoğraf, seyahat, ekipman, yaratıcı süreç ve görsel hikaye anlatımı üzerine kısa yazılar.',
@@ -399,10 +399,10 @@ const tr = {
 	},
 	portfolio: {
 		title: 'Portfolyo',
-		description: 'Haytham Okla’nın lüks seyahat, portre, editoryal, ticari ve sokak fotoğraf projelerini keşfedin.',
+		description: 'Haytham Okla’nın dört minimal fotoğraf koleksiyonunu keşfedin: Gün Batımı Işığı, Atmosfer, İnsan ve Monokrom.',
 		eyebrow: 'Portfolyo',
 		heading: 'Seçilmiş görsel hikayeler.',
-		text: 'Kişisel çekimler, editoryal yazılar, seyahat hikayeleri ve marka görsel sistemleri için seçilmiş fotoğraf arşivi.',
+		text: 'Sessiz ışık, atmosfer, insan hikayeleri ve monokrom çalışmalarından oluşan seçilmiş bir arşiv.',
 		galleryLabel: 'Portfolyo galerisi',
 		categoriesLabel: 'Portfolyo kategorileri',
 	},
@@ -437,6 +437,7 @@ const tr = {
 		equipment: 'Ekipman',
 		skills: 'Beceriler',
 		languages: 'Diller',
+		languageText: 'Hizmet birkaç dilde sunulabilir.',
 	},
 	contact: {
 		title: 'İletişim',
@@ -452,15 +453,14 @@ const tr = {
 	contactBand: {
 		eyebrow: 'Rezervasyonlar ve işbirlikleri',
 		heading: 'Bir sonraki kare bilinçli hissettirsin.',
-		text: 'Editoryal görevler, rafine kişisel marka çalışmaları, ticari kampanyalar ve seyahat odaklı hikaye anlatımı için uygunum.',
+		text: 'Portreler, çiftler, lifestyle çekimleri ve niyet taşıyan görsel hikayeler için uygunum.',
 		cta: 'Proje başlat',
 	},
 	categories: {
-		editorial: 'Editoryal',
-		travel: 'Seyahat',
-		portrait: 'Portre',
-		commercial: 'Ticari',
-		street: 'Sokak',
+		afterglow: 'Gün Batımı Işığı',
+		atmosphere: 'Atmosfer',
+		human: 'İnsan',
+		monochrome: 'Monokrom',
 	},
 } as const;
 
@@ -468,248 +468,117 @@ export const uiCopy = { en, nl, ar, tr } as const;
 
 export const projectCopy: Record<Locale, Record<string, ProjectText>> = {
 	en: {
-		'alpine-stillness': {
-			title: 'Alpine Stillness',
-			description: 'A quiet travel story shaped by mountain weather, negative space, and the patience of dawn light.',
-			body: [
-				'Alpine Stillness studies the quiet moments between movement: the walk before sunrise, the wait for fog to lift, and the first edge of light moving across stone.',
-				'The project was edited for restraint. Each frame keeps a deliberate amount of air around the subject so the landscape feels expansive without becoming theatrical.',
-			],
+		afterglow: {
+			title: 'Afterglow',
+			description: 'A collection of quiet moments shaped by the last light of the day. Silhouettes, coastlines, and fading sunsets where light becomes the subject.',
+			body: ['Quiet moments shaped by the last light of the day.'],
 		},
-		'nocturne-portraits': {
-			title: 'Nocturne Portraits',
-			description: 'Low-light portraits built around city reflections, controlled contrast, and understated confidence.',
-			body: [
-				'Nocturne Portraits was created for a personal brand campaign that needed confidence without gloss. The visual direction leaned into black fabrics, reflective streets, and narrow pools of light.',
-				'The result is direct, restrained, and modern: portraiture that feels polished while keeping the human presence intact.',
-			],
+		atmosphere: {
+			title: 'Atmosphere',
+			description: 'A collection of places, details, textures, and compositions that simply feel beautiful. Images focused on mood, design, and visual harmony.',
+			body: ['Places, details, textures, and compositions held together by mood.'],
 		},
-		'atelier-objects': {
-			title: 'Atelier Objects',
-			description: 'A refined commercial still-life series for handcrafted materials, natural textures, and tactile detail.',
-			body: [
-				'Atelier Objects focuses on small decisions: the fold of linen, the grain of wood, the way a handmade object holds light at its edge.',
-				'The series was designed for a brand system where images needed to work across web, social, print, and retail touchpoints.',
-			],
+		human: {
+			title: 'Human',
+			description: 'A collection of moments that tell human stories. Love, loneliness, connection, distance, and the emotions hidden inside everyday life.',
+			body: ['Human stories carried by love, distance, connection, and everyday emotion.'],
 		},
-		'city-lines': {
-			title: 'City Lines',
-			description: 'Street photography guided by architecture, gesture, and the rhythm of passing light.',
-			body: ['City Lines is a study in urban timing. The work looks for the instant where architecture, shadow, and human gesture briefly align.'],
+		monochrome: {
+			title: 'Monochrome',
+			description: 'A collection of black and white photographs where light, contrast, and composition speak louder than color.',
+			body: ['Black and white photographs where light, contrast, and composition lead.'],
 		},
 	},
 	nl: {
-		'alpine-stillness': {
-			title: 'Alpiene Stilte',
-			description: 'Een rustig reisverhaal gevormd door bergweer, negatieve ruimte en het geduld van ochtendlicht.',
-			body: [
-				'Alpiene Stilte onderzoekt de stille momenten tussen beweging: de wandeling voor zonsopkomst, het wachten tot mist optrekt en de eerste rand licht over steen.',
-				'Het project is terughoudend bewerkt. Elk beeld houdt bewust lucht rond het onderwerp, zodat het landschap groots voelt zonder theatraal te worden.',
-			],
+		afterglow: {
+			title: 'Nagloed',
+			description: 'Een collectie stille momenten gevormd door het laatste licht van de dag. Silhouetten, kustlijnen en verdwijnende zonsondergangen waarin licht het onderwerp wordt.',
+			body: ['Stille momenten gevormd door het laatste licht van de dag.'],
 		},
-		'nocturne-portraits': {
-			title: 'Nocturne Portretten',
-			description: 'Portretten bij weinig licht, gebouwd rond stadsreflecties, gecontroleerd contrast en ingetogen zelfvertrouwen.',
-			body: [
-				'Nocturne Portretten werd gemaakt voor een personal brand-campagne die zelfvertrouwen nodig had zonder glanslaag. De richting leunde op zwarte stoffen, reflecterende straten en smalle stroken licht.',
-				'Het resultaat is direct, beheerst en modern: portretwerk dat gepolijst voelt terwijl de menselijke aanwezigheid intact blijft.',
-			],
+		atmosphere: {
+			title: 'Atmosfeer',
+			description: 'Een collectie plekken, details, texturen en composities die simpelweg mooi aanvoelen. Beelden gericht op sfeer, ontwerp en visuele harmonie.',
+			body: ['Plekken, details, texturen en composities verbonden door sfeer.'],
 		},
-		'atelier-objects': {
-			title: 'Atelier Objecten',
-			description: 'Een verfijnde commerciële stillevenserie voor handgemaakte materialen, natuurlijke texturen en tastbare details.',
-			body: [
-				'Atelier Objecten draait om kleine beslissingen: de vouw van linnen, de nerf van hout, de manier waarop een handgemaakt object licht vasthoudt.',
-				'De serie is ontworpen voor een merksysteem waarin beelden moesten werken voor web, social, print en retail.',
-			],
+		human: {
+			title: 'Menselijk',
+			description: 'Een collectie momenten die menselijke verhalen vertellen. Liefde, eenzaamheid, verbinding, afstand en de emoties verborgen in het dagelijks leven.',
+			body: ['Menselijke verhalen gedragen door liefde, afstand, verbinding en dagelijkse emotie.'],
 		},
-		'city-lines': {
-			title: 'Stadslijnen',
-			description: 'Straatfotografie geleid door architectuur, gebaar en het ritme van passerend licht.',
-			body: ['Stadslijnen is een studie in stedelijke timing. Het werk zoekt het moment waarop architectuur, schaduw en menselijk gebaar kort samenvallen.'],
+		monochrome: {
+			title: 'Monochroom',
+			description: 'Een collectie zwart-witfoto’s waarin licht, contrast en compositie luider spreken dan kleur.',
+			body: ['Zwart-witfoto’s waarin licht, contrast en compositie leiden.'],
 		},
 	},
 	ar: {
-		'alpine-stillness': {
-			title: 'سكون الجبال',
-			description: 'قصة سفر هادئة شكلها طقس الجبال والمساحة السلبية وصبر ضوء الفجر.',
-			body: [
-				'سكون الجبال يدرس اللحظات الهادئة بين الحركة: السير قبل الشروق، انتظار ارتفاع الضباب، وأول حافة ضوء تتحرك على الحجر.',
-				'تم تحرير المشروع بتقشف بصري. كل إطار يترك مساحة مقصودة حول الموضوع ليبدو المشهد واسعاً من دون مبالغة.',
-			],
+		afterglow: {
+			title: 'الوهج الأخير',
+			description: 'مجموعة من اللحظات الهادئة التي شكلها آخر ضوء في اليوم. ظلال، سواحل، وغروب يتلاشى حيث يصبح الضوء هو الموضوع.',
+			body: ['لحظات هادئة شكلها آخر ضوء في اليوم.'],
 		},
-		'nocturne-portraits': {
-			title: 'بورتريهات ليلية',
-			description: 'بورتريهات منخفضة الإضاءة مبنية على انعكاسات المدينة والتباين المحكوم والثقة الهادئة.',
-			body: [
-				'صُنعت بورتريهات ليلية لحملة هوية شخصية احتاجت إلى الثقة من دون لمعان زائد. اتجه الأسلوب إلى الأقمشة السوداء والشوارع العاكسة وبرك الضوء الضيقة.',
-				'النتيجة مباشرة ومتحفظة وحديثة: بورتريه يبدو مصقولاً مع الحفاظ على الحضور الإنساني.',
-			],
+		atmosphere: {
+			title: 'الأجواء',
+			description: 'مجموعة من الأماكن والتفاصيل والملمس والتكوينات التي تبدو جميلة ببساطة. صور تركز على المزاج والتصميم والتناغم البصري.',
+			body: ['أماكن وتفاصيل وملمس وتكوينات يجمعها المزاج.'],
 		},
-		'atelier-objects': {
-			title: 'أشياء الأتيليه',
-			description: 'سلسلة تجارية راقية للأشياء الساكنة، للمواد المصنوعة يدوياً والملمس الطبيعي والتفاصيل الملموسة.',
-			body: [
-				'أشياء الأتيليه تركز على القرارات الصغيرة: طية الكتان، عروق الخشب، والطريقة التي يحتفظ بها الشيء اليدوي بالضوء عند حافته.',
-				'صُممت السلسلة لنظام علامة يحتاج إلى صور تعمل عبر الويب والسوشيال والطباعة ونقاط البيع.',
-			],
+		human: {
+			title: 'الإنسان',
+			description: 'مجموعة من اللحظات التي تحكي قصصاً إنسانية. الحب، الوحدة، الاتصال، المسافة، والمشاعر المخفية داخل الحياة اليومية.',
+			body: ['قصص إنسانية يحملها الحب والمسافة والاتصال ومشاعر الحياة اليومية.'],
 		},
-		'city-lines': {
-			title: 'خطوط المدينة',
-			description: 'تصوير شارع تقوده العمارة والإيماءة وإيقاع الضوء العابر.',
-			body: ['خطوط المدينة دراسة في توقيت المدينة. يبحث العمل عن اللحظة التي تتقاطع فيها العمارة والظل والإيماءة البشرية لفترة قصيرة.'],
+		monochrome: {
+			title: 'أحادي اللون',
+			description: 'مجموعة من الصور بالأبيض والأسود حيث يتحدث الضوء والتباين والتكوين بصوت أعلى من اللون.',
+			body: ['صور بالأبيض والأسود يقودها الضوء والتباين والتكوين.'],
 		},
 	},
 	tr: {
-		'alpine-stillness': {
-			title: 'Alp Sessizliği',
-			description: 'Dağ havası, negatif alan ve şafak ışığının sabrıyla şekillenen sakin bir seyahat hikayesi.',
-			body: [
-				'Alp Sessizliği hareket arasındaki sessiz anları inceler: gün doğmadan yürüyüş, sisin kalkmasını beklemek ve ışığın taşa ilk dokunuşu.',
-				'Proje ölçülü düzenlendi. Her kare öznenin etrafında bilinçli bir boşluk bırakarak manzaranın teatral olmadan geniş hissetmesini sağlar.',
-			],
+		afterglow: {
+			title: 'Gün Batımı Işığı',
+			description: 'Günün son ışığıyla şekillenen sessiz anlardan oluşan bir koleksiyon. Işığın özneye dönüştüğü silüetler, kıyılar ve solan gün batımları.',
+			body: ['Günün son ışığıyla şekillenen sessiz anlar.'],
 		},
-		'nocturne-portraits': {
-			title: 'Gece Portreleri',
-			description: 'Şehir yansımaları, kontrollü kontrast ve sade bir özgüven etrafında kurulan düşük ışık portreleri.',
-			body: [
-				'Gece Portreleri, parlaklık yerine özgüven isteyen bir kişisel marka kampanyası için üretildi. Görsel yön, siyah kumaşlara, yansıyan sokaklara ve dar ışık havuzlarına yaslandı.',
-				'Sonuç doğrudan, ölçülü ve modern: insan varlığını korurken rafine görünen portreler.',
-			],
+		atmosphere: {
+			title: 'Atmosfer',
+			description: 'Güzel hissettiren yerler, detaylar, dokular ve kompozisyonlardan oluşan bir koleksiyon. Ruh hali, tasarım ve görsel uyuma odaklanan görüntüler.',
+			body: ['Ruh haliyle birleşen yerler, detaylar, dokular ve kompozisyonlar.'],
 		},
-		'atelier-objects': {
-			title: 'Atölye Nesneleri',
-			description: 'El yapımı malzemeler, doğal dokular ve dokunsal detaylar için rafine bir ticari natürmort serisi.',
-			body: [
-				'Atölye Nesneleri küçük kararlara odaklanır: ketenin kıvrımı, ahşabın damarı, el yapımı bir nesnenin ışığı kenarında tutuşu.',
-				'Seri, görsellerin web, sosyal, basılı ve perakende temaslarında çalışması gereken bir marka sistemi için tasarlandı.',
-			],
+		human: {
+			title: 'İnsan',
+			description: 'İnsan hikayeleri anlatan anlardan oluşan bir koleksiyon. Sevgi, yalnızlık, bağ, mesafe ve gündelik hayatın içinde saklı duygular.',
+			body: ['Sevgi, mesafe, bağ ve gündelik duygularla taşınan insan hikayeleri.'],
 		},
-		'city-lines': {
-			title: 'Şehir Çizgileri',
-			description: 'Mimari, jest ve geçen ışığın ritmiyle yönlenen sokak fotoğrafçılığı.',
-			body: ['Şehir Çizgileri kentsel zamanlama üzerine bir çalışmadır. İş, mimari, gölge ve insan jestinin kısa süreliğine hizalandığı anı arar.'],
+		monochrome: {
+			title: 'Monokrom',
+			description: 'Işık, kontrast ve kompozisyonun renkten daha güçlü konuştuğu siyah beyaz fotoğraflardan oluşan bir koleksiyon.',
+			body: ['Işık, kontrast ve kompozisyonun öne çıktığı siyah beyaz fotoğraflar.'],
 		},
 	},
 };
 
 export const postCopy: Record<Locale, Record<string, PostText>> = {
 	en: {
-		'finding-silence-in-city-light': {
-			title: 'Finding Silence in City Light',
-			description: 'How to create quiet, cinematic images in busy streets without losing the energy of the place.',
+		'how-should-you-prepare-for-a-photoshoot': {
+			title: 'How Should You Prepare for a Photoshoot?',
+			description: 'Simple answers to the most common questions people ask before a photoshoot, from outfits and arrival time to posing and feeling relaxed.',
 			body: [
-				'Busy streets can feel impossible until you stop trying to control everything. I begin by choosing one clean background, then waiting for the right human gesture to enter it.',
-				'Silence in a city photograph is rarely about emptiness. It comes from hierarchy. One subject, one light source, one dominant line, and enough negative space for the eye to rest.',
-				'The best frames often happen after the obvious moment. Let the first wave of movement pass, keep the composition ready, and wait for the quieter second beat.',
-			],
-		},
-		'packing-for-a-lean-editorial-shoot': {
-			title: 'Packing for a Lean Editorial Shoot',
-			description: 'A practical field note on carrying less equipment while keeping the visual range a client expects.',
-			body: [
-				'A lean kit keeps attention on the subject. For editorial work, I prefer one primary body, two lenses, spare batteries, fast storage, a small light modifier, and a written shot list.',
-				'The goal is not minimalism for its own sake. The goal is mobility. When the kit is simple, decisions become faster and the atmosphere on set stays more relaxed.',
-				'I would rather understand one lens deeply than carry five options that slow the day down.',
-			],
-		},
-		'why-negative-space-feels-expensive': {
-			title: 'Why Negative Space Feels Expensive',
-			description: 'A short essay on restraint, composition, and why premium visual systems need room to breathe.',
-			body: [
-				'Negative space is one of the fastest ways to make an image feel more intentional. It creates pace, gives typography somewhere to live, and lets a brand feel confident enough not to fill every inch.',
-				'In photography, restraint is not absence. It is direction. When fewer elements compete for attention, every remaining detail matters more.',
-				'This is why luxury imagery often feels quiet. It trusts the viewer to come closer.',
+						"Preparing for a photoshoot doesn't have to be complicated. A few simple steps can help you feel more comfortable, more confident, and get the best possible results. Here are the most common questions people ask before a photoshoot.",
+						"What Should I Wear to a Photoshoot? Wear clothes that make you feel comfortable and confident. Neutral colours and simple outfits usually photograph best, while large logos and busy patterns can distract from the final images. If you're taking photos with someone else, choose outfits that complement each other instead of matching exactly.",
+						"Should I Get a Good Night's Sleep Before My Photoshoot? Yes. Being well-rested helps you feel more energetic and relaxed, which naturally shows in your expressions. Feeling your best often leads to better photographs.",
+						"How Early Should I Arrive? Try to arrive five to ten minutes before your scheduled session. Arriving early gives you time to relax and allows the photoshoot to begin without feeling rushed.",
+						"What If I Don't Know How to Pose? That's completely normal. Most people aren't professional models. Your photographer will guide you throughout the session with simple directions, so you don't need to worry about posing or knowing what to do.",
+						"Do I Need to Look Perfect? Not at all. The best photographs usually come from genuine smiles, natural movement, and real emotions rather than perfect poses. Relax, enjoy the experience, and let your personality show.",
+						"Should I Bring Anything With Me? If you'd like to make your photos more personal, feel free to bring meaningful items such as flowers, a blanket, your pet, or anything that reflects your personality or tells part of your story.",
+						"Should I Look for Inspiration Before the Photoshoot? Yes. Looking at photos you like on Pinterest, Instagram, or other websites can help you discover styles, poses, or moods that appeal to you. Sharing a few inspiration photos with your photographer also helps ensure you're both working toward the same vision.",
+						"Do I Need to Look at the Camera? No. Some of the best photos happen when you're simply walking, talking, laughing, or interacting naturally. Looking away from the camera often creates more authentic and relaxed images.",
+						"How Can I Enjoy My Photoshoot More? Don't put pressure on yourself to be perfect. Trust the process, be yourself, and focus on enjoying the experience. When you're relaxed and having fun, it naturally shows in the final photographs."
 			],
 		},
 	},
-	nl: {
-		'finding-silence-in-city-light': {
-			title: 'Stilte vinden in stadslicht',
-			description: 'Hoe je rustige, filmische beelden maakt in drukke straten zonder de energie van de plek te verliezen.',
-			body: [
-				'Drukke straten voelen onmogelijk totdat je stopt met alles willen controleren. Ik begin met één rustige achtergrond en wacht tot het juiste menselijke gebaar erin verschijnt.',
-				'Stilte in een stadsfoto gaat zelden over leegte. Het komt door hiërarchie: één onderwerp, één lichtbron, één dominante lijn en genoeg negatieve ruimte voor het oog.',
-				'De beste beelden ontstaan vaak na het voor de hand liggende moment. Laat de eerste golf beweging voorbijgaan, houd de compositie klaar en wacht op de stillere tweede beat.',
-			],
-		},
-		'packing-for-a-lean-editorial-shoot': {
-			title: 'Inpakken voor een lichte editoriale shoot',
-			description: 'Een praktische veldnotitie over minder apparatuur meenemen terwijl je de visuele range houdt die een klant verwacht.',
-			body: [
-				'Een lichte kit houdt de aandacht bij het onderwerp. Voor editoriaal werk kies ik één hoofdcamera, twee lenzen, extra batterijen, snelle opslag, een kleine lichtvormer en een shotlist.',
-				'Het doel is geen minimalisme om het minimalisme. Het doel is mobiliteit. Als de kit eenvoudig is, worden keuzes sneller en blijft de sfeer op set rustiger.',
-				'Ik begrijp liever één lens diep dan vijf opties mee te dragen die de dag vertragen.',
-			],
-		},
-		'why-negative-space-feels-expensive': {
-			title: 'Waarom negatieve ruimte duur aanvoelt',
-			description: 'Een kort essay over terughoudendheid, compositie en waarom premium visuele systemen ruimte nodig hebben.',
-			body: [
-				'Negatieve ruimte is een van de snelste manieren om een beeld doelgerichter te laten voelen. Het geeft ritme, ruimte voor typografie en laat een merk zelfverzekerd genoeg voelen om niet alles te vullen.',
-				'In fotografie is terughoudendheid geen afwezigheid. Het is richting. Als minder elementen om aandacht vragen, wordt elk overblijvend detail belangrijker.',
-				'Daarom voelt luxe beeld vaak stil. Het vertrouwt erop dat de kijker dichterbij komt.',
-			],
-		},
-	},
-	ar: {
-		'finding-silence-in-city-light': {
-			title: 'العثور على السكون في ضوء المدينة',
-			description: 'كيف تصنع صوراً هادئة وسينمائية في شوارع مزدحمة من دون فقدان طاقة المكان.',
-			body: [
-				'قد تبدو الشوارع المزدحمة مستحيلة حتى تتوقف عن محاولة التحكم بكل شيء. أبدأ باختيار خلفية نظيفة ثم أنتظر الإيماءة البشرية المناسبة.',
-				'السكون في صورة المدينة نادراً ما يكون فراغاً. إنه يأتي من الترتيب: موضوع واحد، مصدر ضوء واحد، خط مهيمن واحد ومساحة سلبية كافية لراحة العين.',
-				'أفضل الإطارات تأتي غالباً بعد اللحظة الواضحة. دع الموجة الأولى تمر، أبق التكوين جاهزاً، وانتظر الإيقاع الثاني الأكثر هدوءاً.',
-			],
-		},
-		'packing-for-a-lean-editorial-shoot': {
-			title: 'حقيبة خفيفة لجلسة تحريرية',
-			description: 'ملاحظة عملية عن حمل معدات أقل مع الحفاظ على المدى البصري الذي يتوقعه العميل.',
-			body: [
-				'الحقيبة الخفيفة تبقي الانتباه على الموضوع. في العمل التحريري أفضل جسماً أساسياً، عدستين، بطاريات إضافية، تخزين سريع، معدل ضوء صغير وقائمة لقطات مكتوبة.',
-				'الهدف ليس التقليل لذاته. الهدف هو الحركة. عندما تكون الحقيبة بسيطة تصبح القرارات أسرع ويبقى الجو في الموقع أكثر هدوءاً.',
-				'أفضل أن أفهم عدسة واحدة بعمق على أن أحمل خمس خيارات تبطئ اليوم.',
-			],
-		},
-		'why-negative-space-feels-expensive': {
-			title: 'لماذا تبدو المساحة السلبية فاخرة',
-			description: 'مقال قصير عن التوازن والتكوين ولماذا تحتاج الأنظمة البصرية الراقية إلى مساحة للتنفس.',
-			body: [
-				'المساحة السلبية من أسرع الطرق لجعل الصورة تبدو مقصودة. إنها تصنع الإيقاع وتمنح النص مكاناً وتُشعر العلامة بثقة كافية كي لا تملأ كل شيء.',
-				'في التصوير، التوازن ليس غياباً. إنه اتجاه. عندما تتنافس عناصر أقل على الانتباه، يصبح كل تفصيل باقٍ أكثر أهمية.',
-				'لهذا تبدو الصور الفاخرة هادئة غالباً. إنها تثق بأن المشاهد سيقترب.',
-			],
-		},
-	},
-	tr: {
-		'finding-silence-in-city-light': {
-			title: 'Şehir Işığında Sessizliği Bulmak',
-			description: 'Kalabalık sokaklarda yerin enerjisini kaybetmeden sakin, sinematik görüntüler üretmek.',
-			body: [
-				'Her şeyi kontrol etmeyi bırakana kadar kalabalık sokaklar imkansız görünebilir. Önce temiz bir arka plan seçer, sonra doğru insan jestinin kadraja girmesini beklerim.',
-				'Bir şehir fotoğrafındaki sessizlik çoğu zaman boşluk değildir. Hiyerarşiden gelir: tek özne, tek ışık kaynağı, tek baskın çizgi ve gözün dinlenmesi için yeterli negatif alan.',
-				'En iyi kareler çoğu zaman bariz andan sonra gelir. İlk hareket dalgasını bırakın, kompozisyonu hazır tutun ve daha sessiz ikinci ritmi bekleyin.',
-			],
-		},
-		'packing-for-a-lean-editorial-shoot': {
-			title: 'Hafif Bir Editoryal Çekim İçin Çanta Hazırlamak',
-			description: 'Müşterinin beklediği görsel aralığı korurken daha az ekipman taşımaya dair pratik bir saha notu.',
-			body: [
-				'Hafif bir set dikkati özne üzerinde tutar. Editoryal işte bir ana gövde, iki lens, yedek piller, hızlı depolama, küçük bir ışık şekillendirici ve yazılı bir çekim listesi tercih ederim.',
-				'Amaç minimalizm değildir. Amaç hareket kabiliyetidir. Set basit olduğunda kararlar hızlanır ve çekim alanındaki atmosfer daha rahat kalır.',
-				'Günü yavaşlatan beş seçenek taşımaktansa tek bir lensi derinlemesine anlamayı tercih ederim.',
-			],
-		},
-		'why-negative-space-feels-expensive': {
-			title: 'Negatif Alan Neden Pahalı Hisseder',
-			description: 'Ölçülülük, kompozisyon ve premium görsel sistemlerin neden nefes alacak alana ihtiyaç duyduğu üzerine kısa bir yazı.',
-			body: [
-				'Negatif alan, bir görüntünün daha bilinçli hissetmesini sağlayan en hızlı yollardan biridir. Ritmi kurar, tipografiye yer açar ve markanın her yeri doldurmayacak kadar özgüvenli görünmesini sağlar.',
-				'Fotoğrafta ölçülülük yokluk değildir. Yöndür. Daha az unsur dikkat için yarıştığında, geriye kalan her detay daha önemli olur.',
-				'Lüks görsellerin çoğu zaman sessiz hissettirmesinin nedeni budur. İzleyicinin yaklaşacağına güvenir.',
-			],
-		},
-	},
+	nl: {},
+	ar: {},
+	tr: {},
 };
 
 export function getCopy(locale: Locale) {

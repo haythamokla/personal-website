@@ -1,6 +1,6 @@
 ---
 import { getCopy } from '../lib/copy';
-import { getLocaleFromPath, pathWithBase, site, type Locale } from '../lib/site';
+import { getLocaleFromPath, pathWithBase, type Locale } from '../lib/site';
 
 interface Props {
 	hrefPrefix?: string;
@@ -23,7 +23,6 @@ const copy = getCopy(locale);
 			</p>
 			<div class="button-row">
 				<a class="button" href={pathWithBase(`${hrefPrefix}/contact/`)}>{copy.contactBand.cta}</a>
-				<a class="button secondary" href={`mailto:${site.email}`}>{site.email}</a>
 			</div>
 		</div>
 	</div>

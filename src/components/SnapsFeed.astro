@@ -35,12 +35,13 @@ const snaps = [...baseSnaps, ...baseSnaps, ...baseSnaps];
 									width={snap.image.width}
 									height={snap.image.height}
 									alt={snap.image.alt}
+									sizes="(min-width: 820px) 390px, 92vw"
 									loading={index < 3 ? 'eager' : 'lazy'}
 									decoding="async"
 								/>
 							</div>
 							<div class="reel-text-box">
-								<p class="eyebrow">{copy.snaps.storyLabel} {String((index % baseSnaps.length) + 1).padStart(2, '0')}</p>
+								<p class="eyebrow">{String((index % baseSnaps.length) + 1).padStart(2, '0')}</p>
 								<h1>{snap.text.title}</h1>
 								<p>{snap.text.body[snap.index % snap.text.body.length] ?? snap.text.description}</p>
 							</div>
@@ -181,7 +182,7 @@ const snaps = [...baseSnaps, ...baseSnaps, ...baseSnaps];
 	.reel-photo-box img {
 		width: 100%;
 		height: 100%;
-		object-fit: contain;
+		object-fit: cover;
 	}
 
 	.reel-text-box {

@@ -15,10 +15,7 @@ const portfolio = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		category: z.enum(['editorial', 'travel', 'portrait', 'commercial', 'street']),
-		client: z.string().optional(),
-		location: z.string(),
-		year: z.number(),
+		category: z.enum(['afterglow', 'atmosphere', 'human', 'monochrome']),
 		featured: z.boolean().default(false),
 		cover: imageSchema,
 		gallery: z.array(imageSchema),

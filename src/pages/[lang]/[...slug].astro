@@ -29,8 +29,9 @@ export async function getStaticPaths() {
 const { lang, slug = '' } = Astro.props as { lang: Locale; slug: string };
 const [posts, projects] = await Promise.all([getCollection('blog'), getCollection('portfolio')]);
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const sortedProjects = projects.sort((a, b) => b.data.year - a.data.year);
-const featuredProjects = sortedProjects.filter((project) => project.data.featured).slice(0, 3);
+const categoryOrder = ['afterglow', 'atmosphere', 'human', 'monochrome'];
+const sortedProjects = projects.sort((a, b) => categoryOrder.indexOf(a.data.category) - categoryOrder.indexOf(b.data.category));
+const featuredProjects = sortedProjects.slice(0, 3);
 const latestPosts = sortedPosts.slice(0, 3);
 const parts = slug.split('/').filter(Boolean);
 const section = parts[0] ?? '';
@@ -129,7 +130,7 @@ const breadcrumbs = [
 					{sortedProjects.map((item) => (
 						<a class="masonry-item" id={item.id} href={pathWithBase(`${localePrefix}/portfolio/${item.id}/`)}>
 							<img src={imageSrc(item.data.cover.src)} width={item.data.cover.width} height={item.data.cover.height} alt={item.data.cover.alt} loading="lazy" decoding="async" />
-							<span><strong>{getProjectText(item.id, lang).title}</strong><small>{copy.categories[item.data.category]} / {item.data.year}</small></span>
+							<span><strong>{getProjectText(item.id, lang).title}</strong><small>{getProjectText(item.id, lang).description}</small></span>
 						</a>
 					))}
 				</section>
@@ -141,11 +142,9 @@ const breadcrumbs = [
 		project && projectText && (
 			<article class="container detail-page">
 				<header>
-					<p class="eyebrow">{copy.categories[project.data.category]}</p>
 					<h1>{projectText.title}</h1>
 					<p class="lead">{projectText.description}</p>
 				</header>
-				<div class="prose">{projectText.body.map((paragraph) => <p>{paragraph}</p>)}</div>
 				<section class="gallery">
 					{project.data.gallery.map((image) => <img src={imageSrc(image.src)} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />)}
 				</section>
@@ -189,6 +188,9 @@ const breadcrumbs = [
 					{copy.about.story.map((paragraph) => <p>{paragraph}</p>)}
 					<h2>{copy.about.journeyTitle}</h2>
 					{copy.about.timeline.map((item) => <p><strong>{item[0]}:</strong> {item[1]}</p>)}
+					<h2>{copy.about.languages}</h2>
+					<p>{copy.about.languageText}</p>
+					<p>English, Turkish, Dutch, Arabic</p>
 				</section>
 				<ContactBand hrefPrefix={localePrefix} locale={lang} />
 			</>

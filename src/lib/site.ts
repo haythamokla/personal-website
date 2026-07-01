@@ -3,8 +3,8 @@ export const defaultLocale = 'en';
 export const locales = {
 	en: { label: 'English', dir: 'ltr' },
 	nl: { label: 'Dutch', dir: 'ltr' },
-	ar: { label: 'Arabic', dir: 'rtl' },
 	tr: { label: 'Turkish', dir: 'ltr' },
+	ar: { label: 'Arabic', dir: 'rtl' },
 } as const;
 
 export type Locale = keyof typeof locales;
@@ -19,12 +19,12 @@ export const site = {
 	author: 'Haytham Okla',
 	email: 'hello@haythamokla.com',
 	phone: '+31 6 0000 0000',
-	location: 'Amsterdam, Netherlands',
+	location: 'South Holland, Netherlands',
 	socials: [
 		{ label: 'Instagram', href: 'https://instagram.com/' },
+		{ label: 'TikTok', href: 'https://tiktok.com/' },
 		{ label: 'YouTube', href: 'https://youtube.com/' },
 		{ label: 'LinkedIn', href: 'https://linkedin.com/' },
-		{ label: 'Behance', href: 'https://behance.net/' },
 	],
 };
 
@@ -48,7 +48,7 @@ export const translations = {
 			contact: 'Contact',
 		},
 		skip: 'Skip to content',
-		footerText: 'Luxury photography, cinematic visual direction, and thoughtful stories from Amsterdam.',
+		footerText: 'Luxury photography, cinematic visual direction, and thoughtful stories from South Holland.',
 		footerNav: 'Footer navigation',
 		socialLinks: 'Social links',
 		languageOptions: 'Language options',
@@ -63,7 +63,7 @@ export const translations = {
 			contact: 'Contact',
 		},
 		skip: 'Ga naar inhoud',
-		footerText: 'Luxe fotografie, filmische visuele richting en doordachte verhalen vanuit Amsterdam.',
+		footerText: 'Luxe fotografie, filmische visuele richting en doordachte verhalen vanuit Zuid-Holland.',
 		footerNav: 'Voetnavigatie',
 		socialLinks: 'Sociale links',
 		languageOptions: 'Taalopties',
@@ -78,7 +78,7 @@ export const translations = {
 			contact: 'تواصل',
 		},
 		skip: 'انتقل إلى المحتوى',
-		footerText: 'تصوير فاخر، وتوجيه بصري سينمائي، وقصص مدروسة من أمستردام.',
+		footerText: 'تصوير فاخر، وتوجيه بصري سينمائي، وقصص مدروسة من جنوب هولندا.',
 		footerNav: 'روابط التذييل',
 		socialLinks: 'روابط التواصل',
 		languageOptions: 'خيارات اللغة',
@@ -93,7 +93,7 @@ export const translations = {
 			contact: 'İletişim',
 		},
 		skip: 'İçeriğe geç',
-		footerText: 'Amsterdam merkezli lüks fotoğrafçılık, sinematik görsel yönlendirme ve düşünceli hikayeler.',
+		footerText: 'Güney Hollanda merkezli lüks fotoğrafçılık, sinematik görsel yönlendirme ve düşünceli hikayeler.',
 		footerNav: 'Alt menü',
 		socialLinks: 'Sosyal bağlantılar',
 		languageOptions: 'Dil seçenekleri',
@@ -101,25 +101,24 @@ export const translations = {
 } as const;
 
 export const categoryLabels = {
-	editorial: 'Editorial',
-	travel: 'Travel',
-	portrait: 'Portrait',
-	commercial: 'Commercial',
-	street: 'Street',
+	afterglow: 'Afterglow',
+	atmosphere: 'Atmosphere',
+	human: 'Human',
+	monochrome: 'Monochrome',
 };
 
 export const imageCatalog = {
 	hero: {
-		src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=82',
-		alt: 'A cinematic mountain road photographed during soft golden light.',
-		width: 2400,
-		height: 1600,
+		src: '/photos/stock/home/DSC02691.jpg',
+		alt: 'A cinematic photograph from Haytham Okla used as the homepage hero image.',
+		width: 3936,
+		height: 2624,
 	},
 	studio: {
-		src: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1800&q=82',
-		alt: 'A professional camera prepared for an editorial photography session.',
-		width: 1800,
-		height: 1200,
+		src: '/photos/stock/home/DSC02691.jpg',
+		alt: 'A cinematic photograph from Haytham Okla used as a quiet editorial site image.',
+		width: 3936,
+		height: 2624,
 	},
 };
 

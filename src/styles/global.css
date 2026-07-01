@@ -97,10 +97,19 @@ a:hover {
 
 .brand,
 .footer-brand {
-	font-family: var(--serif);
 	font-size: 1.1rem;
 	letter-spacing: 0.02em;
 	text-transform: none;
+}
+
+.brand {
+	font-family: var(--sans);
+	font-weight: 900;
+}
+
+.footer-brand {
+	font-family: var(--sans);
+	font-weight: 900;
 }
 
 .nav-links,
