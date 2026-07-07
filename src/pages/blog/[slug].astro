@@ -3,12 +3,13 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContactBand from '../../components/ContactBand.astro';
+import { getBlogSlug, getLocalizedBlogPosts } from '../../lib/content';
 import { absoluteUrl, imageSrc, readingTime, site } from '../../lib/site';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = getLocalizedBlogPosts(await getCollection('blog'), 'en');
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		params: { slug: getBlogSlug(post) },
 		props: { post },
 	}));
 }
@@ -19,7 +20,7 @@ const minutes = readingTime(post.body ?? '');
 const breadcrumbs = [
 	{ name: 'Home', url: '/' },
 	{ name: 'Blog', url: '/blog/' },
-	{ name: post.data.title, url: `/blog/${post.id}/` },
+	{ name: post.data.title, url: `/blog/${getBlogSlug(post)}/` },
 ];
 
 const structuredData = {
@@ -34,7 +35,7 @@ const structuredData = {
 		'@type': 'Person',
 		name: site.name,
 	},
-	mainEntityOfPage: absoluteUrl(`/blog/${post.id}/`),
+	mainEntityOfPage: absoluteUrl(`/blog/${getBlogSlug(post)}/`),
 };
 ---
 
@@ -43,7 +44,7 @@ const structuredData = {
 	description={post.data.description}
 	image={post.data.cover.src}
 	type="article"
-	canonical={`/blog/${post.id}/`}
+	canonical={`/blog/${getBlogSlug(post)}/`}
 	breadcrumbs={breadcrumbs}
 	structuredData={structuredData}
 >

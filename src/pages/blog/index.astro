@@ -5,8 +5,9 @@ import BlogCard from '../../components/BlogCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import { getCopy } from '../../lib/copy';
+import { getLocalizedBlogPosts } from '../../lib/content';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = getLocalizedBlogPosts(await getCollection('blog'), 'en');
 const copy = getCopy('en');
 const categories = [...new Set(posts.map((post) => post.data.category))];
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))];

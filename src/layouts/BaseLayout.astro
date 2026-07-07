@@ -95,7 +95,7 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 		<meta name="twitter:image" content={imageUrl} />
 		{
 			Object.keys(locales).map((lang) => (
-				<link rel="alternate" hreflang={lang} href={absoluteUrl(localizedPath(currentPath, lang as keyof typeof locales))} />
+				<link rel="alternate" hreflang={lang} href={absoluteUrl(localizedPath('/', lang as keyof typeof locales))} />
 			))
 		}
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -118,7 +118,7 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 				<nav class="locale-switcher" aria-label={t.languageOptions}>
 					{
 						Object.entries(locales).map(([code, value]) => (
-						<a href={localizedPath(currentPath, code as keyof typeof locales)} aria-label={value.label} class={code === locale ? 'active' : undefined} aria-current={code === locale ? 'true' : undefined}>
+						<a href={localizedPath('/', code as keyof typeof locales)} aria-label={value.label} class={code === locale ? 'active' : undefined} aria-current={code === locale ? 'true' : undefined}>
 								{code.toUpperCase()}
 							</a>
 						))
