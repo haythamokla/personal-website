@@ -347,6 +347,60 @@ h3 {
 	border-bottom: 1px solid var(--line-strong);
 }
 
+.consent-banner {
+	position: fixed;
+	right: 1rem;
+	bottom: 1rem;
+	z-index: 60;
+	display: grid;
+	gap: 1rem;
+	width: min(calc(100% - 2rem), 28rem);
+	border: 1px solid var(--line-strong);
+	background: rgba(5, 5, 5, 0.94);
+	padding: 1rem;
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.35);
+	backdrop-filter: blur(18px);
+}
+
+.consent-banner[hidden] {
+	display: none;
+}
+
+.consent-banner p {
+	color: var(--muted);
+	font-size: 0.9rem;
+}
+
+.consent-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.consent-actions button {
+	min-height: 2.5rem;
+	border: 1px solid var(--line-strong);
+	background: transparent;
+	color: #fff;
+	padding: 0.7rem 0.9rem;
+	font: inherit;
+	font-size: 0.72rem;
+	font-weight: 800;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.consent-actions button:last-child {
+	border-color: #fff;
+	background: #fff;
+	color: #000;
+}
+
+.consent-actions button:hover {
+	transform: translateY(-1px);
+}
+
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,

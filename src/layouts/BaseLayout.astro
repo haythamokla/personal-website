@@ -103,6 +103,34 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 				<link rel="alternate" hreflang={lang} href={absoluteUrl(localizedPath('/', lang as keyof typeof locales))} />
 			))
 		}
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			window.gtag =
+				window.gtag ||
+				function gtag() {
+					window.dataLayer.push(arguments);
+				};
+
+			let analyticsConsent = 'denied';
+			try {
+				analyticsConsent = localStorage.getItem('haytham-okla-analytics-consent') === 'granted' ? 'granted' : 'denied';
+			} catch (error) {
+				analyticsConsent = 'denied';
+			}
+
+			window.gtag('consent', 'default', {
+				ad_storage: 'denied',
+				ad_user_data: 'denied',
+				ad_personalization: 'denied',
+				analytics_storage: analyticsConsent,
+				wait_for_update: 500,
+			});
+		</script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-MBSZZPMYMK"></script>
+		<script is:inline>
+			window.gtag('js', new Date());
+			window.gtag('config', 'G-MBSZZPMYMK');
+		</script>
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 		</head>
 		<body>
@@ -149,5 +177,51 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 				</footer>
 			)
 		}
+		<div class="consent-banner" data-consent-banner role="dialog" aria-live="polite" aria-label={t.analyticsConsent.label}>
+			<p>{t.analyticsConsent.text}</p>
+			<div class="consent-actions">
+				<button type="button" data-consent-decline>{t.analyticsConsent.decline}</button>
+				<button type="button" data-consent-accept>{t.analyticsConsent.accept}</button>
+			</div>
+		</div>
+		<script is:inline>
+			const consentKey = 'haytham-okla-analytics-consent';
+			const consentBanner = document.querySelector('[data-consent-banner]');
+			const acceptConsent = document.querySelector('[data-consent-accept]');
+			const declineConsent = document.querySelector('[data-consent-decline]');
+
+			function setAnalyticsConsent(value) {
+				try {
+					localStorage.setItem(consentKey, value);
+				} catch (error) {
+					/* Keep browsing usable if storage is unavailable. */
+				}
+
+				if (typeof window.gtag === 'function') {
+					window.gtag('consent', 'update', {
+						ad_storage: 'denied',
+						ad_user_data: 'denied',
+						ad_personalization: 'denied',
+						analytics_storage: value,
+					});
+				}
+
+				consentBanner?.setAttribute('hidden', '');
+			}
+
+			let savedConsent = null;
+			try {
+				savedConsent = localStorage.getItem(consentKey);
+			} catch (error) {
+				savedConsent = null;
+			}
+
+			if (savedConsent === 'granted' || savedConsent === 'denied') {
+				consentBanner?.setAttribute('hidden', '');
+			}
+
+			acceptConsent?.addEventListener('click', () => setAnalyticsConsent('granted'));
+			declineConsent?.addEventListener('click', () => setAnalyticsConsent('denied'));
+		</script>
 	</body>
 </html>

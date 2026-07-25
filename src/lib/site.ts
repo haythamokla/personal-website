@@ -51,6 +51,12 @@ export const translations = {
 		footerNav: 'Footer navigation',
 		socialLinks: 'Social links',
 		languageOptions: 'Language options',
+		analyticsConsent: {
+			label: 'Analytics consent',
+			text: 'We use Google Analytics to understand how the site is used. You can accept or decline analytics cookies.',
+			accept: 'Accept',
+			decline: 'Decline',
+		},
 	},
 	nl: {
 		nav: {
@@ -66,6 +72,12 @@ export const translations = {
 		footerNav: 'Voetnavigatie',
 		socialLinks: 'Sociale links',
 		languageOptions: 'Taalopties',
+		analyticsConsent: {
+			label: 'Analytics toestemming',
+			text: 'We gebruiken Google Analytics om te begrijpen hoe de site wordt gebruikt. Je kunt analytics-cookies accepteren of weigeren.',
+			accept: 'Accepteren',
+			decline: 'Weigeren',
+		},
 	},
 	ar: {
 		nav: {
@@ -81,6 +93,12 @@ export const translations = {
 		footerNav: 'روابط التذييل',
 		socialLinks: 'روابط التواصل',
 		languageOptions: 'خيارات اللغة',
+		analyticsConsent: {
+			label: 'موافقة التحليلات',
+			text: 'نستخدم Google Analytics لفهم كيفية استخدام الموقع. يمكنك قبول أو رفض ملفات تعريف الارتباط الخاصة بالتحليلات.',
+			accept: 'قبول',
+			decline: 'رفض',
+		},
 	},
 	tr: {
 		nav: {
@@ -96,6 +114,12 @@ export const translations = {
 		footerNav: 'Alt menü',
 		socialLinks: 'Sosyal bağlantılar',
 		languageOptions: 'Dil seçenekleri',
+		analyticsConsent: {
+			label: 'Analitik izni',
+			text: 'Sitenin nasıl kullanıldığını anlamak için Google Analytics kullanıyoruz. Analitik çerezlerini kabul edebilir veya reddedebilirsin.',
+			accept: 'Kabul et',
+			decline: 'Reddet',
+		},
 	},
 } as const;
 
