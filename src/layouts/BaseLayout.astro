@@ -22,7 +22,7 @@ interface Props {
 const {
 	title = site.title,
 	description = site.description,
-	image = '/og-image.jpg',
+	image = '/og-image.png',
 	type = 'website',
 	canonical = Astro.url.pathname,
 	breadcrumbs = [],
@@ -82,17 +82,22 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<link rel="canonical" href={canonicalUrl} />
 		<link rel="icon" type="image/svg+xml" href={pathWithBase('/favicon.svg')} />
-		<link rel="icon" href={pathWithBase('/favicon.ico')} />
+		<link rel="icon" sizes="32x32" href={pathWithBase('/favicon.ico')} />
+		<link rel="apple-touch-icon" href={pathWithBase('/apple-touch-icon.png')} />
 		<meta property="og:site_name" content={site.name} />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content={type} />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={`${site.name} logo on a black background`} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={imageUrl} />
+		<meta name="twitter:image:alt" content={`${site.name} logo on a black background`} />
 		{
 			Object.keys(locales).map((lang) => (
 				<link rel="alternate" hreflang={lang} href={absoluteUrl(localizedPath('/', lang as keyof typeof locales))} />
@@ -136,7 +141,7 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 						{
 							Object.entries(locales).map(([code, value]) => (
 								<a href={localizedPath('/', code as keyof typeof locales)} aria-label={value.label} class={code === locale ? 'active' : undefined} aria-current={code === locale ? 'true' : undefined}>
-									{code.toUpperCase()}
+									{value.label}
 								</a>
 							))
 						}

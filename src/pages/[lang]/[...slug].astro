@@ -82,7 +82,7 @@ const breadcrumbs = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} image={project?.data.cover.src ?? post?.data.cover.src ?? imageCatalog.hero.src} canonical={canonical} breadcrumbs={breadcrumbs.length > 1 ? breadcrumbs : []} immersive={section === 'snaps'}>
+<BaseLayout title={pageTitle} description={pageDescription} image={project?.data.cover.src ?? post?.data.cover.src ?? '/og-image.png'} canonical={canonical} breadcrumbs={breadcrumbs.length > 1 ? breadcrumbs : []} immersive={section === 'snaps'}>
 	{section && section !== 'snaps' && <Breadcrumbs items={breadcrumbs} />}
 
 	{

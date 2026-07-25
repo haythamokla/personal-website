@@ -143,10 +143,6 @@ a:hover {
 	color: #fff;
 }
 
-.footer-languages a {
-	border: 1px solid var(--line);
-	padding: 0.35rem 0.45rem;
-}
 
 main {
 	min-height: 100vh;
