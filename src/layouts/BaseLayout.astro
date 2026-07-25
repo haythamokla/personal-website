@@ -115,15 +115,6 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 						))
 					}
 				</nav>
-				<nav class="locale-switcher" aria-label={t.languageOptions}>
-					{
-						Object.entries(locales).map(([code, value]) => (
-						<a href={localizedPath('/', code as keyof typeof locales)} aria-label={value.label} class={code === locale ? 'active' : undefined} aria-current={code === locale ? 'true' : undefined}>
-								{code.toUpperCase()}
-							</a>
-						))
-					}
-				</nav>
 			</header>
 		<main id="content">
 			<slot />
@@ -140,6 +131,15 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 					</nav>
 					<nav aria-label={t.socialLinks}>
 						{site.socials.map((social) => <a href={social.href} rel="noreferrer">{social.label}</a>)}
+					</nav>
+					<nav class="footer-languages" aria-label={t.languageOptions}>
+						{
+							Object.entries(locales).map(([code, value]) => (
+								<a href={localizedPath('/', code as keyof typeof locales)} aria-label={value.label} class={code === locale ? 'active' : undefined} aria-current={code === locale ? 'true' : undefined}>
+									{code.toUpperCase()}
+								</a>
+							))
+						}
 					</nav>
 				</footer>
 			)

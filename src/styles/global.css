@@ -130,8 +130,7 @@ a:hover {
 }
 
 .nav-links a,
-.site-footer a,
-.locale-switcher a {
+.site-footer a {
 	color: var(--muted);
 	font-size: 0.78rem;
 	font-weight: 700;
@@ -140,15 +139,11 @@ a:hover {
 }
 
 .nav-links a[aria-current='page'],
-.locale-switcher .active {
+.footer-languages .active {
 	color: #fff;
 }
 
-.locale-switcher {
-	gap: 0.55rem;
-}
-
-.locale-switcher a {
+.footer-languages a {
 	border: 1px solid var(--line);
 	padding: 0.35rem 0.45rem;
 }
@@ -373,13 +368,9 @@ h3 {
 		padding: 1.15rem 2rem;
 	}
 
-	.nav-links,
-	.locale-switcher {
+	.nav-links {
 		display: flex;
 		align-items: center;
-	}
-
-	.nav-links {
 		grid-column: auto;
 		justify-content: center;
 		gap: clamp(1rem, 3vw, 2.2rem);
@@ -398,6 +389,7 @@ h3 {
 	}
 
 	.site-footer {
-		grid-template-columns: minmax(0, 1.5fr) auto auto;
+		grid-template-columns: minmax(0, 1.5fr) repeat(3, auto);
+		align-items: start;
 	}
 }

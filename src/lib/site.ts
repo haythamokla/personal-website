@@ -18,7 +18,6 @@ export const site = {
 	base: '/',
 	author: 'Haytham Okla',
 	email: 'hello@haythamokla.com',
-	phone: '+31 6 0000 0000',
 	location: 'South Holland, Netherlands',
 	socials: [
 		{ label: 'Instagram', href: 'https://instagram.com/' },
