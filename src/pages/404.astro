@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { pathWithBase } from '../lib/site';
+
+const suggestions = [
+	{ label: 'Home', href: '/' },
+	{ label: 'Portfolio', href: '/portfolio/' },
+	{ label: 'Contact', href: '/contact/' },
+	{ label: 'Links', href: '/links/' },
+];
+---
+
+<BaseLayout title="Not Found" description="The requested page could not be found." canonical="/404/" noindex>
+	<section class="not-found" aria-labelledby="not-found-title">
+		<div class="not-found-inner">
+			<p class="eyebrow">404</p>
+			<h1 id="not-found-title">Frame not found.</h1>
+			<p class="lead">The page you are looking for may have moved, changed, or never made it into the final edit.</p>
+			<nav class="suggestions" aria-label="Suggested pages">
+				{suggestions.map((item) => <a class="button" href={pathWithBase(item.href)}>{item.label}</a>)}
+			</nav>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.not-found {
+		display: grid;
+		place-items: center;
+		min-height: 100vh;
+		padding: 7rem 1rem 4rem;
+	}
+
+	.not-found-inner {
+		display: grid;
+		gap: 1.35rem;
+		width: min(100%, 56rem);
+		text-align: center;
+	}
+
+	.not-found h1 {
+		max-width: none;
+		margin-inline: auto;
+	}
+
+	.not-found .lead {
+		margin-inline: auto;
+	}
+
+	.suggestions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.8rem;
+		margin-top: 0.5rem;
+	}
+</style>

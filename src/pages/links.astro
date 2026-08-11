@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const links = [
-	{ label: 'On Repeat Again', href: 'https://spoti.fi/4jyJqE4', note: 'Spotify playlist', icon: 'S' },
 	{ label: 'Buy My Stuff', href: 'https://www.facebook.com/marketplace/profile/100094278253280/?ref=permalink', note: 'Facebook Marketplace', icon: 'F' },
 	{ label: 'Free Wallpapers', href: 'https://unsplash.com/@haythamokla', note: 'Unsplash downloads', icon: 'U' },
 	{ label: 'Gallery', href: 'https://legacy.haythamokla.com/work', note: 'Old portfolio archive', icon: 'G' },
@@ -26,6 +25,18 @@ const links = [
 					</a>
 				))}
 			</nav>
+			<div class="spotify-embed" aria-label="On Repeat Again Spotify playlist">
+				<iframe
+					title="On Repeat Again Spotify playlist"
+					src="https://open.spotify.com/embed/playlist/6TSmTyNBNaqQ2zZxqQX8c6?utm_source=generator&si=059e8c17dd5040c0"
+					width="100%"
+					height="352"
+					frameborder="0"
+					allowfullscreen
+					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+					loading="lazy"
+				></iframe>
+			</div>
 		</div>
 	</section>
 </BaseLayout>
@@ -50,13 +61,29 @@ const links = [
 		font-size: clamp(3rem, 12vw, 6rem);
 	}
 
+	.spotify-embed {
+		overflow: hidden;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: #101010;
+		clip-path: inset(0 round 8px);
+	}
+
+	.spotify-embed iframe {
+		display: block;
+		border: 0;
+		border-radius: 8px;
+		background: #101010;
+	}
+
 	.links-card nav {
 		display: grid;
 		gap: 0.75rem;
-		margin-top: 1rem;
+		margin-top: 0.25rem;
 	}
 
 	.link-button {
+		-webkit-tap-highlight-color: transparent;
 		display: grid;
 		grid-template-columns: 2.7rem minmax(0, 1fr);
 		align-items: center;
@@ -68,12 +95,20 @@ const links = [
 		color: #000;
 		padding: 0.75rem;
 		text-align: left;
+		touch-action: manipulation;
+		user-select: none;
 		transition: transform 180ms ease;
 	}
 
 	.link-button:hover {
 		color: #000;
 		transform: translateY(-2px);
+	}
+
+	.link-button:active {
+		background: #fff;
+		color: #000;
+		transform: translateY(1px) scale(0.995);
 	}
 
 	.link-icon {
