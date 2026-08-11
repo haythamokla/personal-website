@@ -15,7 +15,7 @@ import { defaultLocale, imageCatalog, imageSrc, locales, pathWithBase, site, typ
 export async function getStaticPaths() {
 	const [posts, projects] = await Promise.all([getCollection('blog'), getCollection('portfolio')]);
 	const translatedLocales = Object.keys(locales).filter((locale) => locale !== defaultLocale) as Locale[];
-	const staticSlugs = ['', 'snaps', 'portfolio', 'blog', 'about', 'contact'];
+	const staticSlugs = ['', 'snaps', 'portfolio', 'blog', 'about', 'contact', 'archive'];
 	const projectSlugs = projects.map((project) => `portfolio/${project.id}`);
 
 	return translatedLocales.flatMap((lang) => {
@@ -54,6 +54,7 @@ const pageLabels = {
 	blog: copy.blog.title,
 	about: copy.about.title,
 	contact: copy.contact.title,
+	archive: copy.archive.title,
 };
 const homeBreadcrumb = { name: copy.common.home, url: `${localePrefix}/` };
 const pageTitle =
@@ -68,6 +69,7 @@ const pageDescription =
 	section === 'blog' ? copy.blog.description :
 	section === 'about' ? copy.about.description :
 	section === 'contact' ? copy.contact.description :
+	section === 'archive' ? copy.archive.description :
 	copy.home.description);
 const canonical =
 	project ? `${localePrefix}/portfolio/${project.id}/` :
@@ -199,17 +201,27 @@ const breadcrumbs = [
 	}
 
 	{
+		section === 'archive' && (
+			<>
+				<PageIntro eyebrow={copy.archive.eyebrow} title={copy.archive.heading} text={copy.archive.text} />
+				<section class="container detail-page archive-page">
+					<a class="button" href="https://legacy.haythamokla.com/work" rel="noreferrer">{copy.archive.cta}</a>
+				</section>
+			</>
+		)
+	}
+
+	{
 		section === 'contact' && (
 			<>
 				<PageIntro eyebrow={copy.contact.eyebrow} title={copy.contact.heading} text={copy.contact.text} />
 				<section class="container detail-page localized-contact">
-					<form class="contact-form" aria-label={copy.contact.title}>
-						<label><span>{copy.common.name}</span><input type="text" name="name" autocomplete="name" placeholder={copy.contact.namePlaceholder} /></label>
-						<label><span>{copy.common.email}</span><input type="email" name="email" autocomplete="email" placeholder={copy.contact.emailPlaceholder} /></label>
-						<label><span>{copy.common.projectType}</span><select name="project">{copy.contact.projectOptions.map((option) => <option>{option}</option>)}</select></label>
-						<label><span>{copy.common.message}</span><textarea name="message" rows="7" placeholder={copy.contact.messagePlaceholder}></textarea></label>
-						<button class="button" type="button">{copy.common.formPlaceholder}</button>
-					</form>
+					<div class="contact-form booking-card" aria-label={copy.contact.title}>
+						<p class="eyebrow">Booking</p>
+						<h2>{copy.common.bookAppointment}</h2>
+						<p class="muted">{copy.contact.text}</p>
+						<a class="button" href="https://legacy.haythamokla.com/contact" rel="noreferrer">{copy.common.bookAppointment}</a>
+					</div>
 					<aside class="prose">
 						<p><strong>{copy.common.email}:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></p>
 						<p><strong>{copy.common.location}:</strong> {site.location}</p>
@@ -337,29 +349,12 @@ const breadcrumbs = [
 		gap: 1rem;
 	}
 
-	label {
-		display: grid;
-		gap: 0.45rem;
+	.booking-card {
+		align-content: start;
 	}
 
-	label span {
-		color: var(--muted);
-		font-size: 0.78rem;
-		font-weight: 800;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-
-	input,
-	select,
-	textarea {
-		width: 100%;
-		border: 1px solid var(--line);
-		border-radius: 0;
-		background: #0b0b0b;
-		color: #fff;
-		font: inherit;
-		padding: 0.9rem;
+	.booking-card h2 {
+		font-size: clamp(1.8rem, 5vw, 3.2rem);
 	}
 
 	@media (min-width: 780px) {

@@ -22,27 +22,12 @@ const breadcrumbs = [
 	<PageIntro eyebrow={copy.contact.eyebrow} title={copy.contact.heading} text={copy.contact.text} />
 
 	<section class="container contact-layout">
-		<form class="contact-form" aria-label="Contact form placeholder">
-			<label>
-				<span>{copy.common.name}</span>
-				<input type="text" name="name" autocomplete="name" placeholder={copy.contact.namePlaceholder} />
-			</label>
-			<label>
-				<span>{copy.common.email}</span>
-				<input type="email" name="email" autocomplete="email" placeholder={copy.contact.emailPlaceholder} />
-			</label>
-			<label>
-				<span>{copy.common.projectType}</span>
-				<select name="project">
-					{copy.contact.projectOptions.map((option) => <option>{option}</option>)}
-				</select>
-			</label>
-			<label>
-				<span>{copy.common.message}</span>
-				<textarea name="message" rows="7" placeholder={copy.contact.messagePlaceholder}></textarea>
-			</label>
-			<button class="button" type="button">{copy.common.formPlaceholder}</button>
-		</form>
+		<div class="contact-form booking-card" aria-label="Booking appointment">
+			<p class="eyebrow">Booking</p>
+			<h2>Book a photography session.</h2>
+			<p class="muted">Use the legacy portfolio booking page to send your appointment request.</p>
+			<a class="button" href="https://legacy.haythamokla.com/contact" rel="noreferrer">{copy.common.bookAppointment}</a>
+		</div>
 
 		<aside class="contact-panel">
 			<div>
@@ -78,33 +63,12 @@ const breadcrumbs = [
 		gap: 1rem;
 	}
 
-	label {
-		display: grid;
-		gap: 0.45rem;
+	.booking-card {
+		align-content: start;
 	}
 
-	label span {
-		color: var(--muted);
-		font-size: 0.78rem;
-		font-weight: 800;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-
-	input,
-	select,
-	textarea {
-		width: 100%;
-		border: 1px solid var(--line);
-		border-radius: 0;
-		background: #0b0b0b;
-		color: #fff;
-		font: inherit;
-		padding: 0.9rem;
-	}
-
-	textarea {
-		resize: vertical;
+	.booking-card h2 {
+		font-size: clamp(2rem, 5vw, 3.8rem);
 	}
 
 	.contact-form .button {

@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const links = [
+	{ label: 'On Repeat Again', href: 'https://spoti.fi/4jyJqE4', note: 'Spotify playlist', icon: 'S' },
+	{ label: 'Buy My Stuff', href: 'https://www.facebook.com/marketplace/profile/100094278253280/?ref=permalink', note: 'Facebook Marketplace', icon: 'F' },
+	{ label: 'Free Wallpapers', href: 'https://unsplash.com/@haythamokla', note: 'Unsplash downloads', icon: 'U' },
+	{ label: 'Gallery', href: 'https://legacy.haythamokla.com/work', note: 'Old portfolio archive', icon: 'G' },
+	{ label: 'Main Website', href: 'https://haythamokla.com/', note: 'Portfolio, blog, contact', icon: 'H' },
+];
+---
+
+<BaseLayout title="Haytham Okla Links" description="Selected links from Haytham Okla." canonical="/links/" noindex>
+	<section class="links-page" aria-labelledby="links-title">
+		<div class="links-card">
+			<h1 id="links-title">Links</h1>
+			<p class="muted">Portfolio, playlists, downloads, and current places.</p>
+			<nav aria-label="Haytham Okla links">
+				{links.map((item) => (
+					<a class="link-button" href={item.href} rel="noreferrer">
+						<span class="link-icon" aria-hidden="true">{item.icon}</span>
+						<span class="link-copy">
+							<strong>{item.label}</strong>
+							<small>{item.note}</small>
+						</span>
+					</a>
+				))}
+			</nav>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.links-page {
+		display: grid;
+		place-items: center;
+		min-height: 100vh;
+		padding: 7rem 1rem 3rem;
+	}
+
+	.links-card {
+		display: grid;
+		gap: 1rem;
+		width: min(100%, 31rem);
+		text-align: center;
+	}
+
+	.links-card h1 {
+		max-width: none;
+		font-size: clamp(3rem, 12vw, 6rem);
+	}
+
+	.links-card nav {
+		display: grid;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.link-button {
+		display: grid;
+		grid-template-columns: 2.7rem minmax(0, 1fr);
+		align-items: center;
+		justify-content: center;
+		gap: 0.85rem;
+		min-height: 4.2rem;
+		border: 1px solid #fff;
+		background: #fff;
+		color: #000;
+		padding: 0.75rem;
+		text-align: left;
+		transition: transform 180ms ease;
+	}
+
+	.link-button:hover {
+		color: #000;
+		transform: translateY(-2px);
+	}
+
+	.link-icon {
+		display: grid;
+		place-items: center;
+		width: 2.7rem;
+		aspect-ratio: 1;
+		background: #000;
+		color: #fff;
+		font-size: 0.82rem;
+		font-weight: 900;
+		letter-spacing: 0;
+	}
+
+	.link-copy {
+		display: grid;
+		align-content: center;
+		gap: 0.1rem;
+	}
+
+	.link-copy strong {
+		font-size: 0.8rem;
+		font-weight: 900;
+		letter-spacing: 0.1em;
+		line-height: 1.2;
+		text-transform: uppercase;
+	}
+
+	.link-copy small {
+		color: #333;
+		font-size: 0.82rem;
+	}
+</style>

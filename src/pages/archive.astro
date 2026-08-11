@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { getCopy } from '../lib/copy';
+
+const copy = getCopy('en');
+const legacyUrl = 'https://legacy.haythamokla.com/work';
+const breadcrumbs = [
+	{ name: copy.common.home, url: '/' },
+	{ name: copy.archive.title, url: '/archive/' },
+];
+---
+
+<BaseLayout title={copy.archive.title} description={copy.archive.description} canonical="/archive/" breadcrumbs={breadcrumbs}>
+	<Breadcrumbs items={breadcrumbs} />
+	<PageIntro eyebrow={copy.archive.eyebrow} title={copy.archive.heading} text={copy.archive.text} />
+	<section class="container archive-page">
+		<a class="button" href={legacyUrl} rel="noreferrer">{copy.archive.cta}</a>
+	</section>
+</BaseLayout>
+
+<style>
+	.archive-page {
+		padding-bottom: clamp(4rem, 8vw, 7rem);
+	}
+</style>

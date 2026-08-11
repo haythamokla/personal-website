@@ -242,7 +242,12 @@ h3 {
 }
 
 .button:hover {
+	color: #000;
 	transform: translateY(-2px);
+}
+
+.button.secondary:hover {
+	color: #fff;
 }
 
 .grid {

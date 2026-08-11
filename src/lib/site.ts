@@ -20,10 +20,9 @@ export const site = {
 	email: 'hello@haythamokla.com',
 	location: 'South Holland, Netherlands',
 	socials: [
-		{ label: 'Instagram', href: 'https://instagram.com/' },
-		{ label: 'TikTok', href: 'https://tiktok.com/' },
-		{ label: 'YouTube', href: 'https://youtube.com/' },
-		{ label: 'LinkedIn', href: 'https://linkedin.com/' },
+		{ label: 'Instagram', href: 'https://instagram.com/byhaytham' },
+		{ label: 'TikTok', href: 'https://tiktok.com/@byhaytham' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/haythamokla/' },
 	],
 };
 
@@ -34,7 +33,10 @@ export const navItems = [
 	{ key: 'blog', href: '/blog/' },
 	{ key: 'about', href: '/about/' },
 	{ key: 'contact', href: '/contact/' },
+	{ key: 'archive', href: '/archive/' },
 ];
+
+export const footerNavItems = navItems;
 
 export const translations = {
 	en: {
@@ -45,6 +47,7 @@ export const translations = {
 			blog: 'Blog',
 			about: 'About',
 			contact: 'Contact',
+			archive: 'Archive',
 		},
 		skip: 'Skip to content',
 		footerText: 'Luxury photography, cinematic visual direction, and thoughtful stories from South Holland.',
@@ -66,6 +69,7 @@ export const translations = {
 			blog: 'Blog',
 			about: 'Over',
 			contact: 'Contact',
+			archive: 'Archief',
 		},
 		skip: 'Ga naar inhoud',
 		footerText: 'Luxe fotografie, filmische visuele richting en doordachte verhalen vanuit Zuid-Holland.',
@@ -87,6 +91,7 @@ export const translations = {
 			blog: 'المدونة',
 			about: 'نبذة',
 			contact: 'تواصل',
+			archive: 'الأرشيف',
 		},
 		skip: 'انتقل إلى المحتوى',
 		footerText: 'تصوير فاخر، وتوجيه بصري سينمائي، وقصص مدروسة من جنوب هولندا.',
@@ -108,6 +113,7 @@ export const translations = {
 			blog: 'Blog',
 			about: 'Hakkında',
 			contact: 'İletişim',
+			archive: 'Arşiv',
 		},
 		skip: 'İçeriğe geç',
 		footerText: 'Güney Hollanda merkezli lüks fotoğrafçılık, sinematik görsel yönlendirme ve düşünceli hikayeler.',

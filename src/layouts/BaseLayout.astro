@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { absoluteUrl, defaultLocale, getLocaleFromPath, getTranslations, localizedPath, locales, navItems, pathWithBase, removeLocaleFromPath, site } from '../lib/site';
+import { absoluteUrl, defaultLocale, getLocaleFromPath, getTranslations, localizedPath, locales, navItems, footerNavItems, pathWithBase, removeLocaleFromPath, site } from '../lib/site';
 
 type Breadcrumb = {
 	name: string;
@@ -160,7 +160,7 @@ const jsonLd = [baseSchema, breadcrumbSchema, ...(Array.isArray(structuredData) 
 						<p>{t.footerText}</p>
 					</div>
 					<nav aria-label={t.footerNav}>
-						{navItems.map((item) => <a href={localizedPath(item.href, locale)}>{t.nav[item.key]}</a>)}
+						{footerNavItems.map((item) => <a href={localizedPath(item.href, locale)}>{t.nav[item.key]}</a>)}
 					</nav>
 					<nav aria-label={t.socialLinks}>
 						{site.socials.map((social) => <a href={social.href} rel="noreferrer">{social.label}</a>)}
